@@ -1,0 +1,6 @@
+SPEC.md
+test
+.claude
+.ruff_cache
+.vercel
+node_modules

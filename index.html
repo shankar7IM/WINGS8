@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WINGS8 | Your Computer. Everywhere.</title>
+  <meta name="description" content="Wings8 turns any screen into a personal computer: a sovereign operating system, a centralized management platform, and affordable plug-and-play hardware. Launching Q4 2026 in India.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="WINGS8 | Your Computer. Everywhere.">
+  <meta property="og:description" content="Digital access for everyone, everywhere. A sovereign OS, centralized fleet management and affordable plug-and-play devices. Launching Q4 2026 in India.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/slide_1_p1_i3.png">
+  <link rel="icon" type="image/png" href="assets/slide_1_p1_i3.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js')</script>
+  <script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+  <!-- Official Razorpay Checkout Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="stylesheet" href="style.css?v=2.25.0">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__bar">
+      <a class="brand" href="#hero" aria-label="WINGS8 Home">
+        <img class="brand__logo" src="assets/slide_1_p1_i3.png" alt="WINGS8 Logo" height="44">
+        <span class="wordmark">WINGS<span>8</span></span>
+      </a>
+
+      <nav id="menu" class="nav__menu" aria-label="Sections">
+        <a href="#mission">Mission</a>
+        <a href="#os">W8 OS</a>
+        <a href="#saas">W8 SaaS</a>
+        <a href="#wares">8Wares</a>
+        <a href="#shop" class="nav__link-shop">Shop</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#impact">Impact</a>
+        <a href="#clients">Our Clients</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="nav__track-btn" id="openTrackOrderBtn" type="button" aria-label="Track your order">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span class="nav__track-text">Track Order</span>
+        </button>
+        <button class="nav__cart" id="cartToggle" type="button" aria-label="Open shopping cart (0 items)" aria-haspopup="dialog" aria-expanded="false">
+          <svg class="cart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Toggle navigation menu">Menu</button>
+      </div>
+    </div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+
+    <!-- 01 HERO (deck slide 1) -->
+    <section class="hero" id="hero">
+      <div class="hero__dark">
+        <div class="hero__copy">
+          <p class="eyebrow">Launching Q4 2026 &middot; India</p>
+          <h1 class="hero__title">WINGS<span>8</span></h1>
+          <p class="hero__line">Your Computer. Everywhere.</p>
+          <p class="hero__sub">Digital access for everyone, everywhere.</p>
+          <p class="hero__body">Wings8 turns any screen into a personal computer: a sovereign operating system, a centralized management platform and a family of affordable plug-and-play devices.</p>
+          <div class="actions">
+            <a class="btn btn--red" href="#shop">Explore the Shop</a>
+            <a class="btn btn--ghost" href="#os">Discover W8 OS</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero__light">
+        <div class="device-view">
+          <div class="stage" id="stickStage" data-logo="assets/slide_1_p1_i3.png" data-model="usb">
+            <img class="stage__fallback" src="assets/w8-tv-stick.png" alt="W8 hardware: plug-and-play computing with the Wings8 logo" width="770" height="840">
+            <div class="stage__shadow" aria-hidden="true"></div>
+            <p class="stage__hint" aria-hidden="true">Drag or arrow keys to rotate</p>
+          </div>
+          <div class="stage-switch" role="group" aria-label="Select device to view in 3D" hidden>
+            <button type="button" data-model="usb" aria-pressed="true">W8 USB</button>
+            <button type="button" data-model="tv" aria-pressed="false">W8 TV</button>
+          </div>
+          <p class="stage__caption" id="stageCaption">W8 USB: One-time installation of W8 OS on any PC.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 MISSION (slide 2) -->
+    <section class="sec sec--paper" id="mission">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">Our Mission</p>
+        </header>
+        <h2 class="h2">Digital access for everyone, everywhere</h2>
+        <div class="split">
+          <div class="mission__left">
+            <h3 class="mission__tagline">Your Computer. Everywhere.</h3>
+            <p class="mission__desc">Wings8 turns any screen into a personal computer. Three building blocks work together as one cohesive ecosystem: a sovereign operating system, a centralised platform to manage device fleets, and a family of affordable plug-and-play hardware.</p>
+            <p class="mission__statement">One ecosystem, one goal: bring reliable, secure computing to the people and places the technology industry leaves behind.</p>
+          </div>
+          <ul class="cards cards--3" role="list">
+            <li class="card card--dark">
+              <div class="card__icon-badge" aria-hidden="true">
+                <img class="card__icon" src="assets/slide_2_p2_i11.png" alt="" width="28" height="28">
+              </div>
+              <div class="card__body">
+                <h3>W8 OS</h3>
+                <p>A sovereign operating system: ultra-light, high-performance and cyber-secured for minimal hardware.</p>
+              </div>
+            </li>
+            <li class="card card--dark">
+              <div class="card__icon-badge" aria-hidden="true">
+                <img class="card__icon" src="assets/slide_2_p2_i16.png" alt="" width="28" height="28">
+              </div>
+              <div class="card__body">
+                <h3>W8 SaaS</h3>
+                <p>One unified platform to manage device fleets, W8 OS licences, remote backups, and invoicing.</p>
+              </div>
+            </li>
+            <li class="card card--dark">
+              <div class="card__icon-badge" aria-hidden="true">
+                <img class="card__icon" src="assets/slide_2_p2_i21.png" alt="" width="28" height="28">
+              </div>
+              <div class="card__body">
+                <h3>8Wares</h3>
+                <p>Plug-and-play hardware: W8 TV stick, W8 USB drive, Mini PCs, AR Glasses and a portable key in R&amp;D.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 W8 OS (slide 3) -->
+    <section class="sec sec--light" id="os">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">W8 OS</p>
+        </header>
+        <h2 class="h2">A sovereign operating system</h2>
+        <ul class="grid grid--4" role="list">
+          <li class="tile">
+            <div class="tile__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                <line x1="16" y1="8" x2="2" y2="22"></line>
+                <line x1="17.5" y1="15" x2="9" y2="15"></line>
+              </svg>
+            </div>
+            <h3>Ultra-light</h3>
+            <p>A minimal footprint that runs on the strictest minimum hardware configuration.</p>
+          </li>
+          <li class="tile">
+            <div class="tile__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3>High-performance</h3>
+            <p>Engineered for speed and responsiveness, even on modest or ageing components.</p>
+          </li>
+          <li class="tile">
+            <div class="tile__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+            </div>
+            <h3>Cyber-secured</h3>
+            <p>Sandboxed environments, no root access to system files, and hardware-bound licensing.</p>
+          </li>
+          <li class="tile tile--red">
+            <div class="tile__icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 3 21 8 3 8"></polygon>
+                <line x1="4" y1="11" x2="20" y2="11"></line>
+                <line x1="6" y1="11" x2="6" y2="18"></line>
+                <line x1="10" y1="11" x2="10" y2="18"></line>
+                <line x1="14" y1="11" x2="14" y2="18"></line>
+                <line x1="18" y1="11" x2="18" y2="18"></line>
+                <line x1="4" y1="18" x2="20" y2="18"></line>
+                <line x1="2" y1="21" x2="22" y2="21"></line>
+              </svg>
+            </div>
+            <h3>Sovereign by design</h3>
+            <p>Licence and data control, local administration, and reduced dependency on foreign operating systems.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 04 SAAS (slide 6) -->
+    <section class="sec sec--paper" id="saas">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">W8 SaaS</p>
+        </header>
+        <h2 class="h2">Central Fleet and Cloud Management</h2>
+        <div class="split">
+          <div class="saas__left">
+            <p class="saas__desc">A single cloud management console to operate every Wings8 device and licence across schools, municipal campuses, corporate workplaces, and regional branches.</p>
+            <p class="chips" aria-label="Capabilities">
+              <span>Fleet management</span>
+              <span>Licence control</span>
+              <span>Data backups</span>
+              <span>OTA updates</span>
+              <span>Billing</span>
+            </p>
+          </div>
+          <ul class="grid grid--2" role="list">
+            <li class="card">
+              <div class="card__icon-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+              </div>
+              <h3>Fleet management</h3>
+              <p>See, configure and manage all your 8Wares devices from one place.</p>
+            </li>
+            <li class="card">
+              <div class="card__icon-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"></path>
+                  <path d="m21 2-9.6 9.6"></path>
+                  <circle cx="7.5" cy="15.5" r="5.5"></circle>
+                </svg>
+              </div>
+              <h3>Licence management</h3>
+              <p>Activate, renew and track W8 OS licences across the whole fleet.</p>
+            </li>
+            <li class="card">
+              <div class="card__icon-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="8" ry="2.5"></ellipse>
+                  <path d="M4 5v6c0 1.38 3.58 2.5 8 2.5"></path>
+                  <path d="M4 11v6c0 1.38 3.58 2.5 8 2.5"></path>
+                  <path d="M20 5v4"></path>
+                  <path d="M20 13a4 4 0 1 0-2 3.46"></path>
+                  <polyline points="20 17 20 13 16 13"></polyline>
+                </svg>
+              </div>
+              <h3>Data Backups &amp; OTA Updates</h3>
+              <p>Schedule and restore data backups. Deploy OTA OS updates without requiring a restart.</p>
+            </li>
+            <li class="card">
+              <div class="card__icon-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path>
+                  <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+                  <path d="M12 6v2m0 8v2"></path>
+                </svg>
+              </div>
+              <h3>Billing &amp; invoices</h3>
+              <p>Centralised invoicing for devices, licences and services.</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8WARES (slide 7) -->
+    <section class="sec sec--light" id="wares">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">8Wares</p>
+        </header>
+        <h2 class="h2">A family of devices built around W8 OS</h2>
+        <ul class="devices" role="list">
+          <li class="device">
+            <div class="device__icon-badge" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="15" x="2" y="7" rx="2"></rect>
+                <polyline points="17 2 12 7 7 2"></polyline>
+              </svg>
+            </div>
+            <h3>W8 TV</h3>
+            <p>HDMI stick that turns any smart TV into a computer.</p>
+            <span class="device__status">Launch Q4 2026</span>
+          </li>
+          <li class="device">
+            <div class="device__icon-badge" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="7" r="1.5"></circle>
+                <circle cx="4" cy="20" r="1.5"></circle>
+                <path d="M4.7 19.3 19 5"></path>
+                <path d="m21 3-3.5 1 2 2.5Z"></path>
+                <path d="M9.26 7.68 5 12l2 5"></path>
+                <path d="m10 14 5 2 3.5-3.5"></path>
+                <path d="m18 12 1-1 1 1-1 1Z"></path>
+              </svg>
+            </div>
+            <h3>W8 USB</h3>
+            <p>One-time W8 OS installation on any PC.</p>
+            <span class="device__status">Launch Q4 2026</span>
+          </li>
+          <li class="device">
+            <div class="device__icon-badge" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55A1 1 0 0 1 20.38 20H3.62a1 1 0 0 1-.9-1.45L4 16"></path>
+              </svg>
+            </div>
+            <h3>W8 Mini PC / Laptop</h3>
+            <p>Minimum-spec machines built to run W8 OS at the lowest cost.</p>
+            <span class="device__status">Hardware In Dev</span>
+          </li>
+          <li class="device">
+            <div class="device__icon-badge" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="15" r="4"></circle>
+                <circle cx="18" cy="15" r="4"></circle>
+                <path d="M14 15a2 2 0 0 0-4 0"></path>
+                <path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"></path>
+                <path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2"></path>
+              </svg>
+            </div>
+            <h3>W8 Glasses / Projector</h3>
+            <p>AR projection glasses and a surface projector for the OS.</p>
+            <span class="device__status">In R&amp;D</span>
+          </li>
+          <li class="device">
+            <div class="device__icon-badge" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"></path>
+                <path d="m21 2-9.6 9.6"></path>
+                <circle cx="7.5" cy="15.5" r="5.5"></circle>
+              </svg>
+            </div>
+            <h3>W8 Key</h3>
+            <p>Autonomous portable device, plug &amp; play on any PC since 2010.</p>
+            <span class="device__status">R&amp;D &middot; 2027</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 8WARES · PRODUCTS (slides 8-9) -->
+    <section class="sec sec--paper" id="launch">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">8Wares &middot; Products</p>
+        </header>
+        <h2 class="h2">W8 TV and W8 USB: plug in, and your computer is there</h2>
+        <div class="duo launch-showcase">
+          <article class="launch-tv panel panel--light">
+            <div class="launch-product-header">
+                <div class="launch-icon-badge" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="15" x="2" y="7" rx="2"></rect>
+                    <polyline points="17 2 12 7 7 2"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="h3">W8 TV</h3>
+                  <p class="lead">The flagship: a TV stick that turns any smart TV into a personal computer.</p>
+                </div>
+              </div>
+              <dl class="specs launch-specs">
+                <div>
+                  <div class="spec-icon-badge" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22v-5"></path>
+                      <path d="M9 8V2"></path>
+                      <path d="M15 8V2"></path>
+                      <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path>
+                    </svg>
+                  </div>
+                  <div><dt>HDMI TV stick</dt><dd>Powered by USB or a wall socket.</dd></div>
+                </div>
+                <div>
+                  <div class="spec-icon-badge" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                      <line x1="8" x2="16" y1="21" y2="21"></line>
+                      <line x1="12" x2="12" y1="17" y2="21"></line>
+                    </svg>
+                  </div>
+                  <div><dt>Plug &amp; play W8 OS</dt><dd>Runs W8 OS on any smart TV, instantly.</dd></div>
+                </div>
+                <div>
+                  <div class="spec-icon-badge" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 20h.01"></path>
+                      <path d="M2 8.82a15 15 0 0 1 20 0"></path>
+                      <path d="M5 12.859a10 10 0 0 1 14 0"></path>
+                      <path d="M8.5 16.429a5 5 0 0 1 7 0"></path>
+                    </svg>
+                  </div>
+                  <div><dt>Wi-Fi &amp; Bluetooth built in</dt><dd>Connect to the internet and your peripherals.</dd></div>
+                </div>
+                <div>
+                  <div class="spec-icon-badge" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                      <path d="M6 8h.001"></path>
+                      <path d="M10 8h.001"></path>
+                      <path d="M14 8h.001"></path>
+                      <path d="M18 8h.001"></path>
+                      <path d="M8 12h.001"></path>
+                      <path d="M12 12h.001"></path>
+                      <path d="M16 12h.001"></path>
+                      <path d="M7 16h10"></path>
+                    </svg>
+                  </div>
+                  <div><dt>Keyboard with trackpad included</dt><dd>Everything needed to start is in the box.</dd></div>
+                </div>
+              </dl>
+          </article>
+          <article class="launch-usb panel panel--dark">
+            <div class="launch-product-header">
+              <div class="launch-icon-badge" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="10" cy="7" r="1.5"></circle>
+                  <circle cx="4" cy="20" r="1.5"></circle>
+                  <path d="M4.7 19.3 19 5"></path>
+                  <path d="m21 3-3.5 1 2 2.5Z"></path>
+                  <path d="M9.26 7.68 5 12l2 5"></path>
+                  <path d="m10 14 5 2 3.5-3.5"></path>
+                  <path d="m18 12 1-1 1 1-1 1Z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="h3">W8 USB</h3>
+                <p class="lead">One-time installation of W8 OS on any PC. Bring an existing computer into the Wings8 ecosystem without buying new hardware.</p>
+              </div>
+            </div>
+
+            <div class="launch-usb__benefits">
+              <h4 class="launch-usb__benefits-heading">Why W8 USB?</h4>
+              <ul class="launch-benefits-list">
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">One-time OS installation</strong>
+                    <span class="benefit-desc">Install W8 OS on a compatible existing PC.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                      <path d="M3 3v5h5"></path>
+                      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+                      <path d="M16 21h5v-5"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">Reuse your existing hardware</strong>
+                    <span class="benefit-desc">Bring your computer into the WINGS8 ecosystem without buying a new PC.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22v-5"></path>
+                      <path d="M9 8V2"></path>
+                      <path d="M15 8V2"></path>
+                      <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">Simple plug-and-play setup</strong>
+                    <span class="benefit-desc">Connect the USB and follow the installation process.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">Your gateway to W8 OS</strong>
+                    <span class="benefit-desc">Access the WINGS8 computing experience on supported hardware.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22v-5"></path>
+                      <path d="M9 8V2"></path>
+                      <path d="M15 8V2"></path>
+                      <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">Plug in the W8 USB drive</strong>
+                    <span class="benefit-desc">Insert the W8 USB drive into a compatible PC.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">Install W8 OS once</strong>
+                    <span class="benefit-desc">Follow the on-screen steps to install W8 OS.</span>
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2v10"></path>
+                      <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                    </svg>
+                  </div>
+                  <div class="benefit-text">
+                    <strong class="benefit-title">Boot into fast, sovereign W8 OS</strong>
+                    <span class="benefit-desc">Restart your computer and experience W8 OS.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div id="pipeline" class="pipeline-section">
+          <header class="sec__head sec__head--sub">
+            <p class="eyebrow">8Wares &middot; Products for Future</p>
+          </header>
+          <h2 class="h2 pipeline-heading">Affordable Machines Today, New Form Factors Tomorrow</h2>
+          <p class="pipeline-desc">The following models are in active engineering and will be made available following commercial release of W8 TV and W8 USB.</p>
+          <div class="grid grid--3 pipeline-grid">
+            <article class="rd-card">
+              <div class="rd-card__header">
+                <div class="rd-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55A1 1 0 0 1 20.38 20H3.62a1 1 0 0 1-.9-1.45L4 16"></path>
+                  </svg>
+                </div>
+                <h3 class="rd-card__title">W8 Mini PC / Laptop</h3>
+              </div>
+              <p class="rd-card__desc">Ultra-affordable machine built to run W8 OS on strict minimum specifications. Awaiting production tooling.</p>
+            </article>
+
+            <article class="rd-card">
+              <div class="rd-card__header">
+                <div class="rd-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="6" cy="15" r="4"></circle>
+                    <circle cx="18" cy="15" r="4"></circle>
+                    <path d="M14 15a2 2 0 0 0-4 0"></path>
+                    <path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"></path>
+                    <path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2"></path>
+                  </svg>
+                </div>
+                <h3 class="rd-card__title">AR Glasses &amp; Surface Projector</h3>
+              </div>
+              <p class="rd-card__desc">Augmented reality display glasses and surface projection casting the OS display and controls onto any flat surface.</p>
+            </article>
+
+            <article class="rd-card">
+              <div class="rd-card__header">
+                <div class="rd-card__icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                  </svg>
+                </div>
+                <h3 class="rd-card__title">W8 Key</h3>
+              </div>
+              <p class="rd-card__desc">Autonomous portable plug-and-play computing key compatible with any PC built since 2010.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06b SHOP (Launch Hardware & Direct Ordering) -->
+    <section class="sec sec--light" id="shop">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">8Wares &middot; Shop</p>
+        </header>
+
+        <div class="shop-grid">
+          <!-- Product 1: W8 TV -->
+          <article class="shop-card" data-product-id="w8-tv">
+            <div class="shop-card__head">
+              <div class="shop-card__badge-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                  <line x1="8" x2="16" y1="21" y2="21"></line>
+                  <line x1="12" x2="12" y1="17" y2="21"></line>
+                </svg>
+              </div>
+              <div class="shop-card__head-text">
+                <h3 class="shop-card__title">W8 TV</h3>
+                <p class="shop-card__subtitle">The flagship: a TV stick that turns any smart TV into a personal computer.</p>
+              </div>
+            </div>
+
+            <div class="shop-card__body">
+              <ul class="shop-card__features">
+                <li class="shop-feature">
+                  <div class="shop-feature__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22v-5"></path>
+                      <path d="M9 8V2"></path>
+                      <path d="M15 8V2"></path>
+                      <path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path>
+                    </svg>
+                  </div>
+                  <div class="shop-feature__text">
+                    <strong class="shop-feature__title">HDMI TV stick</strong>
+                    <span class="shop-feature__desc">Powered by USB or a wall socket.</span>
+                  </div>
+                </li>
+
+                <li class="shop-feature">
+                  <div class="shop-feature__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                      <line x1="8" x2="16" y1="21" y2="21"></line>
+                      <line x1="12" x2="12" y1="17" y2="21"></line>
+                    </svg>
+                  </div>
+                  <div class="shop-feature__text">
+                    <strong class="shop-feature__title">Plug &amp; play W8 OS</strong>
+                    <span class="shop-feature__desc">Runs W8 OS on any smart TV, instantly.</span>
+                  </div>
+                </li>
+
+                <li class="shop-feature">
+                  <div class="shop-feature__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 20h.01"></path>
+                      <path d="M2 8.82a15 15 0 0 1 20 0"></path>
+                      <path d="M5 12.859a10 10 0 0 1 14 0"></path>
+                      <path d="M8.5 16.429a5 5 0 0 1 7 0"></path>
+                    </svg>
+                  </div>
+                  <div class="shop-feature__text">
+                    <strong class="shop-feature__title">Wi-Fi &amp; Bluetooth built in</strong>
+                    <span class="shop-feature__desc">Connect to the internet and your peripherals.</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="shop-card__visual">
+                <img src="assets/w8-tv-device.png" alt="W8 TV HDMI Stick" class="shop-card__img" width="160" height="240" loading="lazy">
+              </div>
+            </div>
+
+            <div class="shop-card__footer">
+              <div class="shop-card__price-wrap">
+                <span class="shop-card__price-label">Price</span>
+                <span class="shop-card__price-val">&#8377;999</span>
+              </div>
+              <div class="shop-card__divider" aria-hidden="true"></div>
+              <button class="btn btn--red shop-card__order-btn" type="button" data-action="add-to-cart" data-id="w8-tv" data-name="W8 TV" data-desc="HDMI TV Stick with Keyboard &amp; Trackpad">
+                Order <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Product 2: W8 USB -->
+          <article class="shop-card" data-product-id="w8-usb">
+            <div class="shop-card__head">
+              <div class="shop-card__badge-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="10" cy="7" r="1.5"></circle>
+                  <circle cx="4" cy="20" r="1.5"></circle>
+                  <path d="M4.7 19.3 19 5"></path>
+                  <path d="m21 3-3.5 1 2 2.5Z"></path>
+                  <path d="M9.26 7.68 5 12l2 5"></path>
+                  <path d="m10 14 5 2 3.5-3.5"></path>
+                  <path d="m18 12 1-1 1 1-1 1Z"></path>
+                </svg>
+              </div>
+              <div class="shop-card__head-text">
+                <h3 class="shop-card__title">W8 USB</h3>
+                <p class="shop-card__subtitle">One-time installation of W8 OS on any PC. Bring an existing computer into the WINGS8 ecosystem.</p>
+              </div>
+            </div>
+
+            <div class="shop-card__body">
+              <ul class="shop-card__features">
+                <li class="shop-feature">
+                  <div class="shop-feature__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                  </div>
+                  <div class="shop-feature__text">
+                    <strong class="shop-feature__title">Easy installation</strong>
+                    <span class="shop-feature__desc">Install W8 OS on a compatible PC.</span>
+                  </div>
+                </li>
+
+                <li class="shop-feature">
+                  <div class="shop-feature__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                      <path d="M3 3v5h5"></path>
+                      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+                      <path d="M16 21h5v-5"></path>
+                    </svg>
+                  </div>
+                  <div class="shop-feature__text">
+                    <strong class="shop-feature__title">Reuse your existing hardware</strong>
+                    <span class="shop-feature__desc">Bring your computer into the WINGS8 ecosystem.</span>
+                  </div>
+                </li>
+
+                <li class="shop-feature">
+                  <div class="shop-feature__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55A1 1 0 0 1 20.38 20H3.62a1 1 0 0 1-.9-1.45L4 16"></path>
+                    </svg>
+                  </div>
+                  <div class="shop-feature__text">
+                    <strong class="shop-feature__title">Plug and play</strong>
+                    <span class="shop-feature__desc">Connect the USB and follow the setup process.</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="shop-card__visual">
+                <img src="assets/w8-usb-device.png" alt="W8 USB Device" class="shop-card__img" width="160" height="240" loading="lazy">
+              </div>
+            </div>
+
+            <div class="shop-card__footer">
+              <div class="shop-card__price-wrap">
+                <span class="shop-card__price-label">Price</span>
+                <span class="shop-card__price-val">&#8377;499</span>
+              </div>
+              <div class="shop-card__divider" aria-hidden="true"></div>
+              <button class="btn btn--red shop-card__order-btn" type="button" data-action="add-to-cart" data-id="w8-usb" data-name="W8 USB" data-desc="One-time W8 OS Installer Drive">
+                Order <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 07 ARCHITECTURE (slide 4) -->
+    <section class="sec sec--paper" id="architecture">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">W8 OS Architecture</p>
+        </header>
+        <h2 class="h2 arch-heading">OpenCore: An open-source core under protected layers</h2>
+
+        <div class="arch-layout">
+          <!-- Architecture Diagram Card -->
+          <div class="arch-card diagram">
+            <!-- Top Tier: Main Architecture Stack + Agentic AI Layer -->
+            <div class="arch-card__top">
+              <!-- Main Architecture Stack -->
+              <div class="arch-stack">
+                <!-- Layer A: Sandboxed Environments & Applications -->
+                <div class="arch-layer-box arch-layer-box--apps">
+                  <span class="arch-layer-box__label">SANDBOXED ENVIRONMENTS &amp; APPLICATIONS</span>
+                  <div class="arch-apps-grid">
+                    <!-- App 1: Web & Media -->
+                    <div class="arch-app">
+                      <div class="arch-app__icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                          <path d="M2 12h20"></path>
+                        </svg>
+                      </div>
+                      <strong class="arch-app__title">Web &amp; Media</strong>
+                      <span class="arch-app__desc">Browser Apps</span>
+                    </div>
+
+                    <!-- App 2: Productivity -->
+                    <div class="arch-app">
+                      <div class="arch-app__icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect width="18" height="13" x="3" y="7" rx="2"></rect>
+                          <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </div>
+                      <strong class="arch-app__title">Productivity</strong>
+                      <span class="arch-app__desc">Office Suite</span>
+                    </div>
+
+                    <!-- App 3: App Sandbox -->
+                    <div class="arch-app">
+                      <div class="arch-app__icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="m21 8-9-5-9 5 9 5 9-5Z"></path>
+                          <path d="m3 8 9 5v10l-9-5V8Z"></path>
+                          <path d="m21 8-9 5v10l9-5V8Z"></path>
+                        </svg>
+                      </div>
+                      <strong class="arch-app__title">App Sandbox</strong>
+                      <span class="arch-app__desc">Secure Runtime</span>
+                    </div>
+
+                    <!-- App 4: System Tools -->
+                    <div class="arch-app">
+                      <div class="arch-app__icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect width="7" height="7" x="3" y="3" rx="1.5"></rect>
+                          <rect width="7" height="7" x="14" y="3" rx="1.5"></rect>
+                          <rect width="7" height="7" x="14" y="14" rx="1.5"></rect>
+                          <rect width="7" height="7" x="3" y="14" rx="1.5"></rect>
+                        </svg>
+                      </div>
+                      <strong class="arch-app__title">System Tools</strong>
+                      <span class="arch-app__desc">Protected Space</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Layer B: Proprietary Licensed Overlays -->
+                <div class="arch-bar arch-bar--overlay">
+                  <div class="arch-bar__icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m12 2 10 5-10 5L2 7l10-5Z"></path>
+                      <path d="m2 12 10 5 10-5"></path>
+                      <path d="m2 17 10 5 10-5"></path>
+                    </svg>
+                  </div>
+                  <div class="arch-bar__content">
+                    <strong class="arch-bar__title">Proprietary Licensed Overlays</strong>
+                    <span class="arch-bar__desc">Licensing Engine &middot; Cryptographic Validation &middot; Device Services</span>
+                  </div>
+                </div>
+
+                <!-- Layer C: Open-Source Core Engine (HERO FOCUS) -->
+                <div class="arch-bar arch-bar--core">
+                  <div class="arch-bar__icon arch-bar__icon--core" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="14" height="14" x="5" y="5" rx="2"></rect>
+                      <rect width="6" height="6" x="9" y="9" rx="1"></rect>
+                      <path d="M9 2v3"></path>
+                      <path d="M15 2v3"></path>
+                      <path d="M9 19v3"></path>
+                      <path d="M15 19v3"></path>
+                      <path d="M2 9h3"></path>
+                      <path d="M2 15h3"></path>
+                      <path d="M19 9h3"></path>
+                      <path d="M19 15h3"></path>
+                    </svg>
+                  </div>
+                  <div class="arch-bar__content">
+                    <strong class="arch-bar__title arch-bar__title--core">Open-Source Core Engine</strong>
+                    <span class="arch-bar__desc arch-bar__desc--core">The OpenCore foundation &middot; Sovereign runtime</span>
+                  </div>
+                </div>
+
+                <!-- Layer D: Universal Hardware Layer -->
+                <div class="arch-bar arch-bar--hardware">
+                  <div class="arch-bar__icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="18" height="12" x="3" y="4" rx="2"></rect>
+                      <line x1="12" y1="16" x2="12" y2="20"></line>
+                      <line x1="8" y1="20" x2="16" y2="20"></line>
+                    </svg>
+                  </div>
+                  <div class="arch-bar__content">
+                    <strong class="arch-bar__title">Universal Hardware Layer</strong>
+                    <span class="arch-bar__desc">Smart TVs, PCs, and other minimal components</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Agentic AI Layer (Beside Main Stack) -->
+              <div class="arch-ai-panel">
+                <div class="arch-ai-icon" aria-hidden="true">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z"></path>
+                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"></path>
+                  </svg>
+                </div>
+                <h3 class="arch-ai-title">Agentic AI Layer</h3>
+                <p class="arch-ai-desc">
+                  Dedicated parallel AI execution environment with isolated memory and zero OS tampering.
+                </p>
+              </div>
+            </div>
+
+            <!-- Layer E: Hardware-Bound Cryptographic Licensing (FULL-WIDTH across entire bottom) -->
+            <div class="arch-bar arch-bar--licensing">
+              <div class="arch-bar__icon arch-bar__icon--licensing" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
+                  <path d="m9 12 2 2 4-4"></path>
+                </svg>
+              </div>
+              <div class="arch-bar__content arch-bar__content--licensing">
+                <strong class="arch-bar__title">Hardware-Bound Cryptographic Licensing</strong>
+                <span class="arch-bar__desc">Blockchain verification on roadmap</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: 4 Architecture Concept Items -->
+          <div class="arch-features">
+            <!-- Feature 1: OpenCore architecture -->
+            <div class="arch-feature">
+              <div class="arch-feature__badge arch-feature__badge--solid" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 2 10 5-10 5L2 7l10-5Z"></path>
+                  <path d="m2 12 10 5 10-5"></path>
+                  <path d="m2 17 10 5 10-5"></path>
+                </svg>
+              </div>
+              <div class="arch-feature__body">
+                <h3 class="arch-feature__title">OpenCore architecture</h3>
+                <p class="arch-feature__desc">An open-source core with proprietary, privately licensed overlays built on top.</p>
+              </div>
+            </div>
+
+            <!-- Feature 2: Sandboxing -->
+            <div class="arch-feature">
+              <div class="arch-feature__badge arch-feature__badge--outline" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="16" height="11" x="4" y="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="arch-feature__body">
+                <h3 class="arch-feature__title">Sandboxing</h3>
+                <p class="arch-feature__desc">Every environment and application is isolated. Reduced attack surface; no admin or root access to system files.</p>
+              </div>
+            </div>
+
+            <!-- Feature 3: Hardware-bound licensing -->
+            <div class="arch-feature">
+              <div class="arch-feature__badge arch-feature__badge--solid" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="7.5" cy="15.5" r="5.5"></circle>
+                  <path d="m21 2-9.6 9.6"></path>
+                  <path d="m15.5 7.5 3 3L22 7l-3-3"></path>
+                </svg>
+              </div>
+              <div class="arch-feature__body">
+                <h3 class="arch-feature__title">Hardware-bound licensing</h3>
+                <p class="arch-feature__desc">Each licence is protected by an algorithm tied to the hardware. A blockchain-based version is on the roadmap.</p>
+              </div>
+            </div>
+
+            <!-- Feature 4: Agentic AI OS -->
+            <div class="arch-feature">
+              <div class="arch-feature__badge arch-feature__badge--outline" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="16" height="16" x="4" y="4" rx="3"></rect>
+                  <circle cx="9" cy="10" r="1.5"></circle>
+                  <circle cx="15" cy="10" r="1.5"></circle>
+                  <path d="M9 15h6"></path>
+                  <path d="M12 2v2"></path>
+                </svg>
+              </div>
+              <div class="arch-feature__body">
+                <h3 class="arch-feature__title">Agentic AI OS</h3>
+                <p class="arch-feature__desc">A dedicated AI layer with its own execution environment, running in parallel with the OS. R&amp;D in progress.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- W8 APPS -->
+    <section class="sec" id="apps">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">W8 APPS</p>
+        </header>
+        <h2 class="h2 apps-heading">Applications, rethought: cloud-first, OS-agnostic, AI-driven</h2>
+
+        <div class="apps-layout">
+          <!-- Left: 4 Feature Cards (2x2 Grid) -->
+          <div class="apps-grid">
+            <!-- Card 1: Cloud-first -->
+            <div class="apps-card">
+              <div class="apps-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                </svg>
+              </div>
+              <h3 class="apps-card__title">Cloud-first</h3>
+              <p class="apps-card__desc">Designed for the cloud from day one, so the device stays light.</p>
+            </div>
+
+            <!-- Card 2: OS-agnostic -->
+            <div class="apps-card">
+              <div class="apps-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </div>
+              <h3 class="apps-card__title">OS-agnostic</h3>
+              <p class="apps-card__desc">Independent of any single operating system.</p>
+            </div>
+
+            <!-- Card 3: Generic -->
+            <div class="apps-card">
+              <div class="apps-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="7.5" height="7.5" x="3" y="3" rx="2"></rect>
+                  <rect width="7.5" height="7.5" x="13.5" y="3" rx="2"></rect>
+                  <rect width="7.5" height="7.5" x="13.5" y="13.5" rx="2"></rect>
+                  <rect width="7.5" height="7.5" x="3" y="13.5" rx="2"></rect>
+                </svg>
+              </div>
+              <h3 class="apps-card__title">Generic</h3>
+              <p class="apps-card__desc">Built once, runs across every operating system.</p>
+            </div>
+
+            <!-- Card 4: Universal -->
+            <div class="apps-card">
+              <div class="apps-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+              </div>
+              <h3 class="apps-card__title">Universal</h3>
+              <p class="apps-card__desc">Able to run applications created for any major OS.</p>
+            </div>
+          </div>
+
+          <!-- Right: Main AI Comparison Panel -->
+          <div class="apps-ai-panel">
+            <div class="apps-ai-header">
+              <div class="apps-ai-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"></path>
+                  <path d="m19 4 .6 1.4a1 1 0 0 0 .6.6L21.6 6.6l-1.4.6a1 1 0 0 0-.6.6L19 9.2l-.6-1.4a1 1 0 0 0-.6-.6L16.4 6.6l1.4-.6a1 1 0 0 0 .6-.6L19 4z"></path>
+                </svg>
+              </div>
+              <h3 class="apps-ai-title">The AI layer changes the paradigm</h3>
+            </div>
+            <p class="apps-ai-desc">
+              Applications generate dynamic visual results that fit the need of the moment &mdash; instead of forcing the user to adapt to an imposed interface.
+            </p>
+
+            <div class="apps-compare-grid">
+              <!-- Comparison Card A: Yesterday -->
+              <div class="apps-compare-card apps-compare-card--yesterday">
+                <span class="apps-compare-tag apps-compare-tag--yesterday">YESTERDAY</span>
+                <h4 class="apps-compare-title">The user is an actor</h4>
+                <p class="apps-compare-desc">Clicks, menus and screens: the user operates the app to get things done.</p>
+              </div>
+
+              <!-- Comparison Card B: With W8 -->
+              <div class="apps-compare-card apps-compare-card--w8">
+                <span class="apps-compare-tag apps-compare-tag--w8">WITH W8</span>
+                <h4 class="apps-compare-title">The user instructs and observes</h4>
+                <p class="apps-compare-desc">The user states the need, the app executes, and the result is shown &mdash; the app paradigm changes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="sec" id="impact">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">IMPACT</p>
+        </header>
+        <h2 class="h2 impact-heading">Five impacts, one platform</h2>
+        <div class="impact impact-grid" role="list">
+          <!-- Card 1: Ecological -->
+          <div class="impact-card" role="listitem">
+            <div class="impact-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+              </svg>
+            </div>
+            <h3 class="impact-card__title">Ecological</h3>
+            <p class="impact-card__desc">Extends the life of existing hardware instead of sending it to landfill.</p>
+          </div>
+
+          <!-- Card 2: Economic -->
+          <div class="impact-card" role="listitem">
+            <div class="impact-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+                <path d="M12 18V6"></path>
+              </svg>
+            </div>
+            <h3 class="impact-card__title">Economic</h3>
+            <p class="impact-card__desc">Lower hardware costs make computing affordable for households and organisations.</p>
+          </div>
+
+          <!-- Card 3: Social -->
+          <div class="impact-card" role="listitem">
+            <div class="impact-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="impact-card__title">Social</h3>
+            <p class="impact-card__desc">Digital access for everyone, everywhere, starting with a TV screen.</p>
+          </div>
+
+          <!-- Card 4: Sovereignty -->
+          <div class="impact-card" role="listitem">
+            <div class="impact-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="22" x2="21" y2="22"></line>
+                <line x1="6" y1="18" x2="6" y2="11"></line>
+                <line x1="10" y1="18" x2="10" y2="11"></line>
+                <line x1="14" y1="18" x2="14" y2="11"></line>
+                <line x1="18" y1="18" x2="18" y2="11"></line>
+                <polygon points="12 2 20 7 4 7"></polygon>
+                <line x1="2" y1="18" x2="22" y2="18"></line>
+                <line x1="3" y1="11" x2="21" y2="11"></line>
+              </svg>
+            </div>
+            <h3 class="impact-card__title">Sovereignty</h3>
+            <p class="impact-card__desc">No dependency on operating systems from foreign providers.</p>
+          </div>
+
+          <!-- Card 5: Security -->
+          <div class="impact-card" role="listitem">
+            <div class="impact-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="impact-card__title">Security</h3>
+            <p class="impact-card__desc">A protected core, unlike fully exposed stacks where visible vulnerabilities can ease attack-surface mapping.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR CLIENTS -->
+    <section class="sec" id="clients">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">OUR CLIENTS</p>
+        </header>
+        <h2 class="h2 clients-heading">Affordable computing tailored for every user segment</h2>
+        <p class="clients-desc">Whether you are an individual wanting a personal computer on your living room TV, a business modernising workstations, or an educational institution, Wings8 provides plug-and-play access.</p>
+
+        <!-- Distribution Flow Diagram -->
+        <div class="market-flow" aria-label="Distribution-led market entry flow">
+          <!-- Left: WINGS8 Brand Card -->
+          <div class="market-card market-card--brand">
+            <img src="assets/slide_1_p1_i3.png" alt="WINGS8 Logo" class="market-brand__logo" height="52">
+            <span class="market-brand__name">Wings8</span>
+          </div>
+
+          <!-- Connector: WINGS8 -> Distributors -->
+          <div class="market-connector market-connector--single" aria-hidden="true">
+            <svg width="44" height="20" viewBox="0 0 44 20" fill="none">
+              <defs>
+                <marker id="market-arrow-single" viewBox="0 0 14 14" refX="12" refY="7" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+                  <path d="M 4 2 L 12 7 L 4 12" fill="none" stroke="#111116" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+              <line x1="2" y1="10" x2="40" y2="10" stroke="#111116" stroke-width="2" stroke-linecap="round" marker-end="url(#market-arrow-single)"/>
+            </svg>
+          </div>
+
+          <!-- Middle: Distributors Card -->
+          <div class="market-card market-card--distributor">
+            <div class="market-badge" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path>
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
+                <path d="M2 7h20"></path>
+              </svg>
+            </div>
+            <div class="market-card__body">
+              <h3 class="market-card__title">Distributors</h3>
+              <p class="market-card__desc">Pay for the stock they receive and sell it at their own cost and risk.</p>
+            </div>
+          </div>
+
+          <!-- Desktop Connector: Distributors -> Customer Segments -->
+          <div class="market-connector market-connector--branch" aria-hidden="true">
+            <svg width="56" height="308" viewBox="0 0 56 308" fill="none">
+              <defs>
+                <marker id="market-arrow-branch" viewBox="0 0 14 14" refX="12" refY="7" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+                  <path d="M 4 2 L 12 7 L 4 12" fill="none" stroke="#111116" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+              <!-- Top branch to B2B (center at y: 46) -->
+              <line x1="2" y1="154" x2="52" y2="46" stroke="#111116" stroke-width="2" stroke-linecap="round" marker-end="url(#market-arrow-branch)"/>
+              <!-- Center branch to B2C (center at y: 154) -->
+              <line x1="2" y1="154" x2="52" y2="154" stroke="#111116" stroke-width="2" stroke-linecap="round" marker-end="url(#market-arrow-branch)"/>
+              <!-- Bottom branch to B2G/B2A (center at y: 262) -->
+              <line x1="2" y1="154" x2="52" y2="262" stroke="#111116" stroke-width="2" stroke-linecap="round" marker-end="url(#market-arrow-branch)"/>
+            </svg>
+          </div>
+
+          <!-- Mobile Connector between Distributor and Segments -->
+          <div class="market-connector market-connector--mobile" aria-hidden="true">
+            <svg width="20" height="36" viewBox="0 0 20 36" fill="none">
+              <defs>
+                <marker id="market-arrow-mobile" viewBox="0 0 14 14" refX="12" refY="7" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+                  <path d="M 4 2 L 12 7 L 4 12" fill="none" stroke="#111116" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </marker>
+              </defs>
+              <line x1="10" y1="2" x2="10" y2="30" stroke="#111116" stroke-width="2" stroke-linecap="round" marker-end="url(#market-arrow-mobile)"/>
+            </svg>
+          </div>
+
+          <!-- Right: Three Customer Segment Cards Stacked -->
+          <div class="market-segments">
+            <!-- Card 1: B2B -->
+            <div class="market-card market-card--segment">
+              <div class="market-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+                  <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+                  <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                  <path d="M10 6h4"></path>
+                  <path d="M10 10h4"></path>
+                  <path d="M10 14h4"></path>
+                  <path d="M10 18h4"></path>
+                </svg>
+              </div>
+              <div class="market-card__body">
+                <h3 class="market-card__title">B2B</h3>
+                <p class="market-card__desc">Businesses equipping their teams and sites.</p>
+              </div>
+            </div>
+
+            <!-- Card 2: B2C -->
+            <div class="market-card market-card--segment">
+              <div class="market-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="market-card__body">
+                <h3 class="market-card__title">B2C</h3>
+                <p class="market-card__desc">Consumers who want a computer on their TV.</p>
+              </div>
+            </div>
+
+            <!-- Card 3: B2G / B2A -->
+            <div class="market-card market-card--segment">
+              <div class="market-badge" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="3" y1="22" x2="21" y2="22"></line>
+                  <line x1="6" y1="18" x2="6" y2="11"></line>
+                  <line x1="10" y1="18" x2="10" y2="11"></line>
+                  <line x1="14" y1="18" x2="14" y2="11"></line>
+                  <line x1="18" y1="18" x2="18" y2="11"></line>
+                  <polygon points="12 2 20 7 4 7"></polygon>
+                  <line x1="2" y1="18" x2="22" y2="18"></line>
+                  <line x1="3" y1="11" x2="21" y2="11"></line>
+                </svg>
+              </div>
+              <div class="market-card__body">
+                <h3 class="market-card__title">B2G / B2A</h3>
+                <p class="market-card__desc">Governments and public administrations, reached through political and institutional relays.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 ROADMAP -->
+    <section class="sec" id="roadmap">
+      <div class="wrap">
+        <header class="sec__head">
+          <p class="eyebrow">ROADMAP</p>
+        </header>
+        <h2 class="h2 roadmap-heading">From three years of development to market launch</h2>
+        <ol class="timeline">
+          <li>
+            <p class="when">2023 &ndash; 2026</p>
+            <h3>Development</h3>
+            <p>Three years of engineering on W8 OS, W8 SaaS and the 8Wares device range.</p>
+          </li>
+          <li>
+            <p class="when">2026</p>
+            <h3>Production Ready</h3>
+            <p>Product family finalized. Industrial manufacturing and logistics rollout.</p>
+          </li>
+          <li>
+            <p class="when">Q4 2026</p>
+            <h3>Commercial launch</h3>
+            <p>Launch rollout across India, through direct online ordering and certified regional distributors.</p>
+          </li>
+          <li>
+            <p class="when">2027</p>
+            <h3>W8 Key release</h3>
+            <p>The autonomous, portable device, plug &amp; play on any PC built since 2010.</p>
+          </li>
+          <li class="is-rd">
+            <p class="when">R&amp;D PIPELINE</p>
+            <h3>Next generation</h3>
+            <p>AR Glasses, Surface Projector, agentic AI OS layer, blockchain-based licensing.</p>
+          </li>
+        </ol>
+      </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <div class="foot__brand">
+        <a class="brand" href="#hero" aria-label="WINGS8 Home">
+          <img class="brand__logo" src="assets/slide_1_p1_i3.png" alt="WINGS8 Logo" height="44" loading="lazy">
+          <span class="wordmark">WINGS<span>8</span></span>
+        </a>
+        <p class="foot__tag">Your Computer. Everywhere.</p>
+        <p class="foot__sub">Digital access for everyone, everywhere.</p>
+        <p class="foot__sub">Launching Q4 2026 &middot; India</p>
+
+        <!-- Social Media & Contact Links -->
+        <div class="social-links" aria-label="Social media and email">
+          <a class="social-link" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-config="social-instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a class="social-link" href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-config="social-linkedin">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a class="social-link" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" data-config="social-facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a class="social-link" href="mailto:contact@wings8.placeholder" aria-label="Email Wings8" data-config="contact-email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="foot__col" aria-label="Platform">
+        <h2 class="foot__head">Platform</h2>
+        <ul>
+          <li><a href="#os">W8 OS</a></li>
+          <li><a href="#saas">W8 SaaS</a></li>
+          <li><a href="#architecture">OpenCore Architecture</a></li>
+          <li><a href="#apps">W8 Apps</a></li>
+        </ul>
+      </nav>
+
+      <nav class="foot__col" aria-label="Devices & Shop">
+        <h2 class="foot__head">8Wares &amp; Shop</h2>
+        <ul>
+          <li><a href="#shop">Product Catalogue</a></li>
+          <li><a href="#launch">W8 TV &amp; W8 USB</a></li>
+          <li><a href="#wares">8Wares Lineup</a></li>
+          <li><a href="#shop">Hardware Pipeline</a></li>
+        </ul>
+      </nav>
+
+      <nav class="foot__col" aria-label="Company & Orders">
+        <h2 class="foot__head">Company &amp; Orders</h2>
+        <ul>
+          <li><a href="#clients">Our Clients</a></li>
+          <li><a href="#impact">Social &amp; Economic Impact</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#top" id="footTrackOrderLink">Track Your Order</a></li>
+          <li><a href="#distributor" id="distributorLink">Become a Distributor</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="foot__base">
+      <div class="wrap foot__bottom">
+        <p>&copy; 2026 WINGS8. All rights reserved. Sovereign Operating System &amp; Hardware.</p>
+        <a class="foot__top" href="#top">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER OVERLAY -->
+  <div class="cart-backdrop" id="cartBackdrop" hidden></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping Cart" aria-hidden="true" role="dialog">
+    <div class="cart-drawer__head">
+      <div class="cart-drawer__title-wrap">
+        <h2 class="h3">Your Cart</h2>
+        <span class="cart-drawer__badge" id="cartDrawerCount">0 items</span>
+      </div>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-drawer__body" id="cartDrawerBody">
+      <!-- Items dynamically populated via script.js -->
+    </div>
+    <div class="cart-drawer__foot" id="cartDrawerFoot">
+      <div class="cart-drawer__subtotal">
+        <span>Reservation Deposit Total</span>
+        <span class="subtotal-val" id="cartSubtotalVal">&#8377;0</span>
+      </div>
+      <p class="cart-drawer__notice">Reservation deposit confirms your hardware allocation for Q4 2026 rollout in India. Fully deductible upon delivery confirmation.</p>
+      <button class="btn btn--red btn--block" id="proceedToCheckoutBtn" type="button">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL OVERLAY -->
+  <div class="checkout-backdrop" id="checkoutBackdrop" hidden></div>
+  <div class="checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutModalTitle" hidden>
+    <div class="checkout-modal__dialog">
+      <div class="checkout-modal__head">
+        <h2 class="h3" id="checkoutModalTitle">Secure Checkout &middot; Razorpay</h2>
+        <button class="checkout-modal__close" id="checkoutClose" type="button" aria-label="Close checkout">&times;</button>
+      </div>
+      <div class="checkout-modal__body">
+        <div class="checkout-gateway-notice">
+          <strong>Official Razorpay Payment Gateway (India):</strong>
+          <span>Secure payments via UPI (Google Pay, PhonePe, Paytm), Debit/Credit Cards, and NetBanking. Product pricing is strictly verified on our server before order creation.</span>
+        </div>
+
+        <div class="checkout-summary" id="checkoutSummaryList">
+          <!-- Summary items dynamically loaded -->
+        </div>
+
+        <form class="checkout-form" id="checkoutForm" novalidate>
+          <div class="checkout-form__grid">
+            <div class="field">
+              <label for="co-name">Full Name *</label>
+              <input id="co-name" name="name" type="text" autocomplete="name" placeholder="e.g. Rahul Sharma" required>
+              <p class="err" id="err-co-name" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="co-email">Email Address *</label>
+              <input id="co-email" name="email" type="email" autocomplete="email" placeholder="e.g. rahul@example.com" required>
+              <p class="err" id="err-co-email" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="co-phone">Mobile Phone (+91) *</label>
+              <input id="co-phone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. +91 9876543210" required>
+              <p class="err" id="err-co-phone" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="co-org">Organisation (optional)</label>
+              <input id="co-org" name="organisation" type="text" autocomplete="organization" placeholder="e.g. Tech Solutions Pvt Ltd">
+            </div>
+            <div class="field field--full">
+              <label for="co-address">Delivery Address *</label>
+              <input id="co-address" name="address" type="text" autocomplete="street-address" placeholder="Flat, Street, Landmark" required>
+              <p class="err" id="err-co-address" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="co-city">City *</label>
+              <input id="co-city" name="city" type="text" autocomplete="address-level2" placeholder="e.g. Bengaluru" required>
+              <p class="err" id="err-co-city" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="co-postal">PIN Code *</label>
+              <input id="co-postal" name="postal" type="text" autocomplete="postal-code" placeholder="e.g. 560001" required>
+              <p class="err" id="err-co-postal" role="alert"></p>
+            </div>
+            <div class="field field--full">
+              <label for="co-region">State / Region *</label>
+              <select id="co-region" name="region" required>
+                <option value="">Select State / UT in India</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Delhi">Delhi NCR</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Other India State">Other State / UT (India)</option>
+              </select>
+              <p class="err" id="err-co-region" role="alert"></p>
+            </div>
+          </div>
+          <div class="checkout-form__actions">
+            <button class="btn btn--red" type="submit" id="submitOrderBtn">Proceed to Razorpay Payment</button>
+            <button class="btn btn--ghost" type="button" id="cancelOrderBtn">Back to Cart</button>
+          </div>
+        </form>
+
+        <!-- Confirmed Order Status View -->
+        <div class="checkout-confirmed-box" id="checkoutConfirmedBox" hidden>
+          <div class="confirmed-badge">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Payment Verified &amp; Order Confirmed</span>
+          </div>
+          <h3 class="h3" style="margin-top: 14px;">Thank you for your order!</h3>
+          <p>Your hardware launch reservation has been received and verified by our server.</p>
+          <div class="order-receipt-summary" id="orderReceiptDetails">
+            <!-- Receipt details injected here -->
+          </div>
+          <div class="order-confirmed-actions" style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn btn--red" type="button" id="trackConfirmedOrderBtn">Track This Order</button>
+            <button class="btn btn--ghost" type="button" id="closeConfirmedModalBtn">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER TRACKING MODAL -->
+  <div class="track-backdrop" id="trackBackdrop" hidden></div>
+  <div class="track-modal" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle" hidden>
+    <div class="track-modal__dialog">
+      <div class="track-modal__head">
+        <h2 class="h3" id="trackModalTitle">Track Your Order Status</h2>
+        <button class="track-modal__close" id="trackCloseBtn" type="button" aria-label="Close order tracker">&times;</button>
+      </div>
+      <div class="track-modal__body">
+        <form class="track-form" id="trackForm">
+          <div class="track-form__row">
+            <div class="field" style="flex: 1.5;">
+              <label for="trackOrderRef">Order Reference ID *</label>
+              <input id="trackOrderRef" name="orderRef" type="text" placeholder="e.g. W8-ORD-172866..." required>
+            </div>
+            <div class="field" style="flex: 1.5;">
+              <label for="trackEmail">Email Address (optional)</label>
+              <input id="trackEmail" name="email" type="email" placeholder="e.g. name@example.com">
+            </div>
+            <div style="align-self: flex-end;">
+              <button class="btn btn--red" type="submit" id="trackLookupBtn">Lookup</button>
+            </div>
+          </div>
+          <p class="err" id="trackErrorMsg" role="alert"></p>
+        </form>
+
+        <div class="track-result" id="trackResultContainer" hidden>
+          <!-- Live tracking stages injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BECOME A DISTRIBUTOR MODAL -->
+  <div class="distributor-backdrop" id="distributorBackdrop" hidden></div>
+  <div class="distributor-modal" id="distributorModal" role="dialog" aria-modal="true" aria-labelledby="distributorModalTitle" hidden>
+    <div class="distributor-modal__dialog">
+      <button class="distributor-modal__close" id="distributorCloseBtn" type="button" aria-label="Close distributor modal">&times;</button>
+      <div class="distributor-modal__body">
+        <h2 class="distributor-modal__title" id="distributorModalTitle">Become a Distributor</h2>
+        <p class="distributor-modal__desc">Contact our team for distributor opportunities.</p>
+        
+        <div class="distributor-phone-card">
+          <div class="distributor-phone-badge" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div class="distributor-phone-info">
+            <p class="distributor-phone-number">+91 94893 77799</p>
+            <p class="distributor-phone-hours">Mon &ndash; Fri, 9:00 AM &ndash; 6:00 PM (IST)</p>
+          </div>
+        </div>
+
+        <a href="tel:+919489377799" class="btn btn--red distributor-call-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>Call Now</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=2.3.0"></script>
+</body>
+</html>
