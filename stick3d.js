@@ -159,15 +159,55 @@ function hdmiShellGeometry() {
   return new THREE.ExtrudeGeometry(outer, { depth: len, bevelEnabled: false, curveSegments: 16 });
 }
 
+function loadTexture(url) {
+  return new Promise((resolve) => {
+    new THREE.TextureLoader().load(
+      url,
+      (t) => {
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.generateMipmaps = true;
+        t.minFilter = THREE.LinearMipmapLinearFilter;
+        t.magFilter = THREE.LinearFilter;
+        t.anisotropy = 16;
+        resolve(t);
+      },
+      undefined,
+      (err) => {
+        console.warn('Failed to load texture:', url, err);
+        resolve(null);
+      }
+    );
+  });
+}
+
+function createContactShadowTexture() {
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  grad.addColorStop(0, 'rgba(0, 0, 0, 0.55)');
+  grad.addColorStop(0.35, 'rgba(0, 0, 0, 0.28)');
+  grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.08)');
+  grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
 /** Hollow USB-A shell: a rounded rectangle tube, open at the tip. Extruded along +Z (rotated onto +Y by the caller). */
-function usbShellGeometry() {
-  const outer = roundedRect(12, 4.6, 0.9);
-  outer.holes.push(roundedRect(11.1, 3.7, 0.6));
-  return new THREE.ExtrudeGeometry(outer, { depth: 12.6, bevelEnabled: false, curveSegments: 12 });
+function usbShellGeometry(w = 12.8, th = 4.4, len = 11.4) {
+  const wall = 0.42;
+  const r = 0.7;
+  const outer = roundedRect(w, th, r);
+  outer.holes.push(roundedRect(w - 2 * wall, th - 2 * wall, Math.max(0.1, r - wall)));
+  return new THREE.ExtrudeGeometry(outer, { depth: len, bevelEnabled: false, curveSegments: 12 });
 }
 
 /* ---------- the model ---------- */
-function buildStick(decalMap) {
+function buildStick(decalMap, usbTexture) {
   const add = (parent, geo, mat, x, y, z, rx = 0, ry = 0) => {
     const m = new THREE.Mesh(geo, mat);
     m.position.set(x, y, z);
@@ -178,39 +218,89 @@ function buildStick(decalMap) {
   const flat = (parent, w, h, mat, x, y, z) => add(parent, new THREE.PlaneGeometry(w, h), mat, x, y, z);
 
   // ==========================================
-  // W8 USB (pen drive) — exactly preserved
+  // W8 USB (pen drive) — photorealistic reference model
   // ==========================================
   const usb = new THREE.Group();
-  const carbon = carbonTexture();
-  const carbonMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff, map: carbon, bumpMap: carbon, bumpScale: 0.35,
-    roughness: 0.38, metalness: 0.35, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.1,
-  });
-  const matte = new THREE.MeshPhysicalMaterial({ color: 0x050506, roughness: 0.32, metalness: 0.6, clearcoat: 0.6, clearcoatRoughness: 0.25, envMapIntensity: 0.45 });
-  const gold = new THREE.MeshStandardMaterial({ color: 0xffd470, emissive: 0x5a3b00, emissiveIntensity: 0.55, roughness: 0.16, metalness: 1, envMapIntensity: 2.4 });
-  const shellMat = new THREE.MeshStandardMaterial({ color: 0xd4d4d8, roughness: 0.34, metalness: 1, envMapIntensity: 1.5 });
-  const blue = new THREE.MeshStandardMaterial({ color: 0x1b5fd6, roughness: 0.5, metalness: 0.1 });
-  const black = new THREE.MeshBasicMaterial({ color: 0x050505 });
-  const rim = new THREE.MeshStandardMaterial({ color: 0x77777c, roughness: 0.5, metalness: 1 });
+  usb.position.y = 7.0; // aligns visual mass with viewport center
 
-  add(usb, slab(22, 42, 9, 3.4, 1.1), carbonMat, 0, 7, 0);
-  add(usb, slab(22.4, 18, 9.4, 3.8, 1.2), matte, 0, -22, 0);
-  add(usb, slab(3.6, 1.2, 0.3, 0.5, 0.1), new THREE.MeshBasicMaterial({ color: 0xffffff }), 0, -27, 4.72);
-  const usbDecal = new THREE.Mesh(
-    new THREE.PlaneGeometry(15, 15),
-    new THREE.MeshBasicMaterial({ map: decalMap, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2 })
-  );
-  usbDecal.position.set(0, 10, 4.58);
-  usb.add(usbDecal);
-
-  add(usb, usbShellGeometry(), shellMat, 0, 27.4, 0, -Math.PI / 2);        // shell, 12 x 4.6 x 12.6
-  add(usb, new THREE.BoxGeometry(10.4, 11, 1.5), blue, 0, 33.5, -0.45);     // insert, recessed 1.4 from the mouth
-  [-3.75, -1.25, 1.25, 3.75].forEach((x) => add(usb, new THREE.BoxGeometry(1.1, 4.2, 0.25), gold, x, 36.2, 0.4));
-  [[-2.8, 35.4, 2.5, 2.5], [2.2, 31.6, 2.5, 2.5], [3.1, 38.3, 3.6, 1.0]].forEach(([x, y, w, h], i) => {
-    flat(usb, w + 0.5, h + 0.5, rim, x, y, 2.305);                           // bevel edge
-    flat(usb, w, h, black, x, y, 2.31);                                      // the hole
-    if (i < 2) flat(usb, 0.7, 1.4, gold, x + 0.5, y - 0.2, 2.315);           // contact visible inside
+  const usbShellMat = new THREE.MeshStandardMaterial({
+    color: 0xe2e2e8,
+    roughness: 0.24,
+    metalness: 0.95,
+    envMapIntensity: 1.8,
   });
+  const usbBodyMat = new THREE.MeshPhysicalMaterial({
+    color: 0x0c0c0e,
+    roughness: 0.35,
+    metalness: 0.25,
+    clearcoat: 0.55,
+    clearcoatRoughness: 0.16,
+    envMapIntensity: 1.0,
+  });
+  const usbCapMat = new THREE.MeshPhysicalMaterial({
+    color: 0x060608,
+    roughness: 0.18,
+    metalness: 0.35,
+    clearcoat: 0.95,
+    clearcoatRoughness: 0.08,
+    envMapIntensity: 1.25,
+  });
+  const gold = new THREE.MeshStandardMaterial({
+    color: 0xffd470,
+    emissive: 0x5a3b00,
+    emissiveIntensity: 0.55,
+    roughness: 0.16,
+    metalness: 1,
+    envMapIntensity: 2.4,
+  });
+  const usbDarkCore = new THREE.MeshStandardMaterial({
+    color: 0x121216,
+    roughness: 0.8,
+    metalness: 0.1,
+  });
+
+  // A. 3D Body depth casing
+  add(usb, slab(20.4, 38.3, 7.6, 3.2, 1.0), usbBodyMat, 0, 3.65, 0);
+
+  // B. 3D Cap depth casing
+  add(usb, slab(20.8, 16.4, 8.0, 3.4, 1.1), usbCapMat, 0, -25.6, 0);
+
+  // C. 3D USB Type-A connector shell & interior
+  add(usb, usbShellGeometry(12.8, 4.4, 11.4), usbShellMat, 0, 22.8, 0, -Math.PI / 2);
+  add(usb, new THREE.BoxGeometry(11.0, 9.8, 1.3), usbDarkCore, 0, 28.1, -0.45);
+  [-3.7, -1.25, 1.25, 3.7].forEach((x) => add(usb, new THREE.BoxGeometry(1.0, 3.8, 0.2), gold, x, 31.0, 0.38));
+  [-2.8, 2.8].forEach((x) => flat(usb, 2.4, 2.2, new THREE.MeshBasicMaterial({ color: 0x111114 }), x, 28.5, -2.21));
+
+  // D. Front photographic face using reference texture (682x1024, aspect ratio 0.666015625)
+  if (usbTexture) {
+    const frontMat = new THREE.MeshPhysicalMaterial({
+      map: usbTexture,
+      transparent: true,
+      alphaTest: 0.02,
+      roughness: 0.3,
+      metalness: 0.15,
+      clearcoat: 0.75,
+      clearcoatRoughness: 0.12,
+      envMapIntensity: 0.95,
+      reflectivity: 0.5,
+      side: THREE.FrontSide,
+    });
+    const frontMesh = new THREE.Mesh(new THREE.PlaneGeometry(51.95, 78.0), frontMat);
+    frontMesh.position.set(0, 0, 4.02);
+    usb.add(frontMesh);
+  }
+
+  // E. Soft contact shadow on ground beneath cap
+  const contactShadowMat = new THREE.MeshBasicMaterial({
+    map: createContactShadowTexture(),
+    transparent: true,
+    opacity: 0.42,
+    depthWrite: false,
+  });
+  const contactShadow = new THREE.Mesh(new THREE.PlaneGeometry(26, 8), contactShadowMat);
+  contactShadow.position.set(0, -34.2, 0);
+  contactShadow.rotation.x = -Math.PI / 2;
+  usb.add(contactShadow);
 
   // ==========================================
   // W8 TV (HDMI stick) — realistic adaptation
@@ -313,18 +403,19 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
   const pivot = new THREE.Group();
   const lean = new THREE.Group();
   const tilt = new THREE.Group();
-  lean.rotation.z = -0.40;
-  tilt.rotation.x = -0.58;
-  const parts = buildStick(await decalTexture(logoUrl));
+  const usbTexture = await loadTexture('assets/w8-usb-upright.png');
+  const parts = buildStick(await decalTexture(logoUrl), usbTexture);
   const stick = parts.root;
   let current = startModel === 'tv' ? 'tv' : 'usb';
+  lean.rotation.z = current === 'tv' ? -0.44 : 0;
+  tilt.rotation.x = current === 'tv' ? -0.62 : -0.04;
   const showModel = (name) => {
     parts.tv.visible = name === 'tv';
     parts.usb.visible = name === 'usb';
     current = name;
     canvas.setAttribute('aria-label', name === 'tv'
       ? 'Interactive 3D model of the W8 TV HDMI stick. Drag, or use arrow keys, to rotate.'
-      : 'Interactive 3D model of the W8 USB installer drive. Drag, or use arrow keys, to rotate.');
+      : 'Interactive 3D model of the WINGS8 USB drive. Drag, or use arrow keys, to rotate.');
   };
   showModel(current);
   let swap = null;
@@ -402,44 +493,55 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
 
     // Distinctive animations per product:
     // W8 TV: HDMI media-device floating motion with gentle wave & golden key highlight
-    // W8 USB: Precision key-drive precession with metallic reflection scan
+    // WINGS8 USB: Upright photorealistic product display with smooth floating and slow side-profile reveal
     let sway = 0;
     let bob = 0;
-    let baseLeanZ = -0.40;
-    let baseTiltX = -0.58;
+    let targetLeanZ = 0;
+    let targetTiltX = 0;
 
     if (current === 'tv') {
       key.color.setHex(0xfff7e8);
       key.intensity = 1.65;
-      baseLeanZ = -0.44;
-      baseTiltX = -0.62;
+      const baseLeanZ = -0.44;
+      const baseTiltX = -0.62;
       if (!reduceMotion) {
         sway = Math.sin(time * 0.6) * 0.28 * (settling ? 1 : 0.35);
         bob = Math.sin(time * 1.05) * 1.6;
         const pitchDrift = Math.cos(time * 0.5) * 0.07 * (settling ? 1 : 0.2);
         const rollDrift = Math.sin(time * 0.35) * 0.05;
-        lean.rotation.z = baseLeanZ + rollDrift;
-        tilt.rotation.x = baseTiltX + pitchDrift;
+        targetLeanZ = baseLeanZ + rollDrift;
+        targetTiltX = baseTiltX + pitchDrift;
+      } else {
+        targetLeanZ = baseLeanZ;
+        targetTiltX = baseTiltX;
       }
     } else {
-      // W8 USB (pen drive)
+      // WINGS8 USB (pen drive) — Upright, smooth float & gentle side-profile rotation
       key.color.setHex(0xffffff);
-      key.intensity = 1.6;
-      baseLeanZ = -0.36;
-      baseTiltX = -0.54;
+      key.intensity = 1.5;
+      const baseLeanZ = 0;
+      const baseTiltX = -0.04;
       if (!reduceMotion) {
-        sway = (Math.sin(time * 0.85) * 0.36 + Math.sin(time * 1.7) * 0.08) * (settling ? 1 : 0.35);
-        bob = Math.sin(time * 1.35) * 1.1;
-        const pitchDrift = Math.sin(time * 0.85) * 0.12 * (settling ? 1 : 0.2);
-        const rollDrift = Math.cos(time * 0.85) * 0.09 * (settling ? 1 : 0.2);
-        lean.rotation.z = baseLeanZ + rollDrift;
-        tilt.rotation.x = baseTiltX + pitchDrift;
+        // Slow, gentle 3D-style rotation around the vertical axis, revealing side profile and returning
+        sway = Math.sin(time * 0.55) * 0.20 * (settling ? 1 : 0.3);
+        // Smooth floating animation with subtle vertical movement
+        bob = Math.sin(time * 1.0) * 1.2;
+        const pitchDrift = Math.cos(time * 0.45) * 0.02 * (settling ? 1 : 0.2);
+        const rollDrift = Math.sin(time * 0.35) * 0.015 * (settling ? 1 : 0.2);
+        targetLeanZ = baseLeanZ + rollDrift;
+        targetTiltX = baseTiltX + pitchDrift;
+      } else {
+        targetLeanZ = 0;
+        targetTiltX = 0;
       }
     }
 
     if (reduceMotion) {
-      lean.rotation.z = baseLeanZ;
-      tilt.rotation.x = baseTiltX;
+      lean.rotation.z = targetLeanZ;
+      tilt.rotation.x = targetTiltX;
+    } else {
+      lean.rotation.z = damp(lean.rotation.z, targetLeanZ, 5, dt);
+      tilt.rotation.x = damp(tilt.rotation.x, targetTiltX, 5, dt);
     }
 
     // switching device: dip and swing out, swap the model at the midpoint, swing back in
@@ -455,11 +557,15 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
       if (p >= 1) swap = null;
     }
 
-    pivot.rotation.y = yaw + sway + scrollTurn + (1 - intro) * 1.7 + swapYaw;
+    const introYaw = (1 - intro) * (current === 'usb' ? 0.6 : 1.7);
+    pivot.rotation.y = yaw + sway + scrollTurn + introYaw + swapYaw;
     pivot.rotation.x = pitch;
     pivot.position.y = bob * 1.3;
     pivot.scale.setScalar((0.82 + 0.18 * intro) * swapScale);
-    if (shadow) shadow.style.transform = `translateX(-50%) scaleX(${1 - bob * 0.05}) scaleY(${1 - bob * 0.05})`;
+    if (shadow) {
+      const sf = current === 'usb' ? (1 - bob * 0.04) : (1 - bob * 0.05);
+      shadow.style.transform = `translateX(-50%) scaleX(${sf}) scaleY(${sf})`;
+    }
 
     renderer.render(scene, camera);
     host.classList.add('is-3d');
