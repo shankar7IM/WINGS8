@@ -16,6 +16,50 @@ function validateEnquiry(values) {
   return errors;
 }
 
+const INDIAN_STATES = [
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chhattisgarh',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal'
+];
+
+const INDIAN_UNION_TERRITORIES = [
+  'Andaman and Nicobar Islands',
+  'Chandigarh',
+  'Dadra and Nagar Haveli and Daman and Diu',
+  'Delhi',
+  'Jammu and Kashmir',
+  'Ladakh',
+  'Lakshadweep',
+  'Puducherry'
+];
+
+const ALL_INDIAN_REGIONS = new Set([...INDIAN_STATES, ...INDIAN_UNION_TERRITORIES]);
+
 /** Pure checkout validation, kept DOM-free so it can be unit tested. Returns {field: message}. */
 function validateCheckout(values) {
   const errors = {};
@@ -28,14 +72,34 @@ function validateCheckout(values) {
 
   if (!clean(values.phone)) errors.phone = 'Enter your phone number.';
   if (!clean(values.address)) errors.address = 'Enter your delivery address.';
-  if (!clean(values.city)) errors.city = 'Enter your city.';
+
+  const city = clean(values.city);
+  if (!city) {
+    errors.city = 'Enter your city.';
+  } else if (city.length < 2) {
+    errors.city = 'Enter a valid city name.';
+  }
+
   if (!clean(values.postal)) errors.postal = 'Enter your postal or PIN code.';
-  if (!clean(values.region)) errors.region = 'Choose a region.';
+
+  const region = clean(values.region);
+  if (!region) {
+    errors.region = 'Choose a State / UT.';
+  } else if (!ALL_INDIAN_REGIONS.has(region) && region !== 'India') {
+    errors.region = 'Select a valid Indian State or Union Territory.';
+  }
+
   return errors;
 }
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { validateEnquiry, validateCheckout };
+  module.exports = {
+    validateEnquiry,
+    validateCheckout,
+    INDIAN_STATES,
+    INDIAN_UNION_TERRITORIES,
+    ALL_INDIAN_REGIONS
+  };
 }
 
 if (typeof document !== 'undefined') {
@@ -149,6 +213,46 @@ if (typeof document !== 'undefined') {
     else window.addEventListener('load', boot, { once: true });
   }
 
+  // ---------- W8 TV Shop Card 3D Product Stage ----------
+  const shopTvStage = document.getElementById('shopCardTvStage');
+  if (shopTvStage && 'WebGLRenderingContext' in window) {
+    const bootShopTv = () => import('./stick3d.js?v=2.3.0')
+      .then((m) => m.mountStick(shopTvStage, {
+        logoUrl: shopTvStage.dataset.logo || 'assets/slide_1_p1_i3.png',
+        reduceMotion,
+        model: 'tv',
+        scrollTurn: false,
+        isCard: true
+      }))
+      .catch((err) => {
+        console.warn('Failed to load shop card 3D TV:', err);
+        shopTvStage.classList.add('no-3d');
+      });
+
+    if (document.readyState === 'complete') bootShopTv();
+    else window.addEventListener('load', bootShopTv, { once: true });
+  }
+
+  // ---------- W8 USB Shop Card 3D Product Stage ----------
+  const shopUsbStage = document.getElementById('shopCardUsbStage');
+  if (shopUsbStage && 'WebGLRenderingContext' in window) {
+    const bootShopUsb = () => import('./stick3d.js?v=2.3.0')
+      .then((m) => m.mountStick(shopUsbStage, {
+        logoUrl: shopUsbStage.dataset.logo || 'assets/slide_2_p2_i21.png',
+        reduceMotion,
+        model: 'usb',
+        scrollTurn: false,
+        isCard: true
+      }))
+      .catch((err) => {
+        console.warn('Failed to load shop card 3D USB:', err);
+        shopUsbStage.classList.add('no-3d');
+      });
+
+    if (document.readyState === 'complete') bootShopUsb();
+    else window.addEventListener('load', bootShopUsb, { once: true });
+  }
+
   // ---------- Product Catalogue Pricing & Deposits ----------
   const CATALOG_DEPOSITS = {
     'w8-tv': 999,
@@ -210,6 +314,23 @@ if (typeof document !== 'undefined') {
     if (cartDrawerCount) cartDrawerCount.textContent = `${totalCount} item${totalCount === 1 ? '' : 's'}`;
     if (cartSubtotalVal) cartSubtotalVal.textContent = `₹${subtotalINR.toLocaleString('en-IN')}`;
 
+    // Synchronize product card buttons with cart state
+    const addToCartBtns = document.querySelectorAll('[data-action="add-to-cart"]');
+    addToCartBtns.forEach((btn) => {
+      const id = btn.dataset.id;
+      const inCart = cart.some((i) => i.id === id && i.qty > 0);
+      const span = btn.querySelector('span');
+      if (inCart) {
+        btn.classList.add('is-added');
+        if (span) span.textContent = 'Added to Cart \u2713';
+        btn.setAttribute('aria-label', `${btn.dataset.name || 'Product'} added to cart`);
+      } else {
+        btn.classList.remove('is-added');
+        if (span) span.textContent = 'Add to Cart';
+        btn.setAttribute('aria-label', `Add ${btn.dataset.name || 'Product'} to Cart`);
+      }
+    });
+
     if (!cartDrawerBody) return;
     if (cart.length === 0) {
       cartDrawerBody.innerHTML = '<p class="cart-empty-msg">Your cart is currently empty.<br><br>Explore the launch catalogue to reserve hardware allocations.</p>';
@@ -223,8 +344,8 @@ if (typeof document !== 'undefined') {
           <div class="cart-item" data-id="${item.id}">
             <div class="cart-item__thumb">
               ${item.id === 'w8-tv'
-                ? '<img src="assets/w8-tv-device.png" alt="W8 TV">'
-                : '<img src="assets/w8-usb-device.png" alt="W8 USB">'
+                ? '<img src="assets/w8-tv-upright.png" alt="W8 TV">'
+                : '<img src="assets/w8-usb-upright.png" alt="W8 USB">'
               }
             </div>
             <div class="cart-item__info">
@@ -244,6 +365,32 @@ if (typeof document !== 'undefined') {
     }
   };
 
+  window.addEventListener('storage', (e) => {
+    if (e.key === CART_KEY) {
+      updateCartUI();
+    }
+  });
+
+  const cartToast = document.getElementById('cartToast');
+  const cartToastMsg = document.getElementById('cartToastMsg');
+  const cartToastViewBtn = document.getElementById('cartToastViewBtn');
+  let toastTimer = null;
+
+  const showCartToast = (message) => {
+    if (!cartToast) return;
+    if (cartToastMsg) cartToastMsg.textContent = message;
+    cartToast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      cartToast.classList.remove('is-visible');
+    }, 3200);
+  };
+
+  cartToastViewBtn?.addEventListener('click', () => {
+    cartToast?.classList.remove('is-visible');
+    setCartOpen(true);
+  });
+
   // Add to cart & View in 3D delegation
   document.addEventListener('click', (e) => {
     const addBtn = e.target.closest('[data-action="add-to-cart"]');
@@ -259,7 +406,21 @@ if (typeof document !== 'undefined') {
         cart.push({ id, name, desc, qty: 1 });
       }
       saveCart(cart);
-      setCartOpen(true);
+
+      // Tactile visual feedback on the button without reverting state
+      addBtn.classList.remove('is-pulse');
+      void addBtn.offsetWidth;
+      addBtn.classList.add('is-pulse');
+      setTimeout(() => addBtn.classList.remove('is-pulse'), 250);
+
+      // Bump animation on header cart icon
+      if (cartToggle) {
+        cartToggle.classList.add('is-bumped');
+        setTimeout(() => cartToggle.classList.remove('is-bumped'), 400);
+      }
+
+      // Display subtle success notification
+      showCartToast(`${name} added to cart`);
       return;
     }
 

@@ -122,6 +122,46 @@ function verticalRibbedTexture() {
   return t;
 }
 
+function tvBackDecalTexture() {
+  const size = 512, c = document.createElement('canvas');
+  c.width = c.height = size;
+  const g = c.getContext('2d');
+  g.fillStyle = 'rgba(0,0,0,0)';
+  g.fillRect(0, 0, size, size);
+
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+
+  // Laser-etched subtle regulatory markings
+  g.fillStyle = 'rgba(255, 255, 255, 0.28)';
+  g.font = '700 32px "Plus Jakarta Sans", Carlito, Arial, sans-serif';
+  g.fillText('WINGS8 TV', size / 2, 120);
+
+  g.fillStyle = 'rgba(255, 255, 255, 0.20)';
+  g.font = '500 20px "Plus Jakarta Sans", Carlito, Arial, sans-serif';
+  g.fillText('HDMI · 4K UHD · Sovereign W8 OS', size / 2, 170);
+  g.fillText('Model: W8-TV · Input: 5V = 2A', size / 2, 210);
+
+  // Regulatory badges
+  g.strokeStyle = 'rgba(255, 255, 255, 0.20)';
+  g.lineWidth = 2;
+  // CE badge
+  g.strokeRect(size / 2 - 80, 270, 48, 30);
+  g.font = '700 18px "Plus Jakarta Sans", sans-serif';
+  g.fillText('CE', size / 2 - 56, 285);
+  // FC badge
+  g.strokeRect(size / 2 + 32, 270, 48, 30);
+  g.fillText('FC', size / 2 + 56, 285);
+
+  g.font = '400 18px "Plus Jakarta Sans", Carlito, Arial, sans-serif';
+  g.fillText('Designed by WINGS8', size / 2, 350);
+
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 8;
+  return t;
+}
+
 /** Hollow HDMI Type-A shell with realistic trapezoidal cross-section. */
 function hdmiShellGeometry() {
   const wTop = 14.0;
@@ -207,7 +247,7 @@ function usbShellGeometry(w = 12.8, th = 4.4, len = 11.4) {
 }
 
 /* ---------- the model ---------- */
-function buildStick(decalMap, usbTexture) {
+function buildStick(decalMap, usbTexture, usbBackTexture) {
   const add = (parent, geo, mat, x, y, z, rx = 0, ry = 0) => {
     const m = new THREE.Mesh(geo, mat);
     m.position.set(x, y, z);
@@ -231,19 +271,19 @@ function buildStick(decalMap, usbTexture) {
   });
   const usbBodyMat = new THREE.MeshPhysicalMaterial({
     color: 0x0c0c0e,
-    roughness: 0.35,
-    metalness: 0.25,
-    clearcoat: 0.55,
-    clearcoatRoughness: 0.16,
-    envMapIntensity: 1.0,
+    roughness: 0.32,
+    metalness: 0.22,
+    clearcoat: 0.7,
+    clearcoatRoughness: 0.12,
+    envMapIntensity: 1.05,
   });
   const usbCapMat = new THREE.MeshPhysicalMaterial({
-    color: 0x060608,
-    roughness: 0.18,
-    metalness: 0.35,
-    clearcoat: 0.95,
-    clearcoatRoughness: 0.08,
-    envMapIntensity: 1.25,
+    color: 0x08080a,
+    roughness: 0.22,
+    metalness: 0.28,
+    clearcoat: 0.85,
+    clearcoatRoughness: 0.09,
+    envMapIntensity: 1.2,
   });
   const gold = new THREE.MeshStandardMaterial({
     color: 0xffd470,
@@ -259,17 +299,17 @@ function buildStick(decalMap, usbTexture) {
     metalness: 0.1,
   });
 
-  // A. 3D Body depth casing
-  add(usb, slab(20.4, 38.3, 7.6, 3.2, 1.0), usbBodyMat, 0, 3.65, 0);
+  // A. 3D Body depth casing (continuous from connector base y=22.8 to parting line y=-16.45)
+  add(usb, slab(20.8, 39.25, 7.7, 3.2, 0.65), usbBodyMat, 0, 3.175, 0);
 
-  // B. 3D Cap depth casing
-  add(usb, slab(20.8, 16.4, 8.0, 3.4, 1.1), usbCapMat, 0, -25.6, 0);
+  // B. 3D Cap depth casing & seamless joint backing (from parting line y=-16.45 to bottom y=-33.8)
+  add(usb, slab(20.8, 17.35, 7.7, 3.2, 0.65), usbCapMat, 0, -25.125, 0);
+  add(usb, slab(20.4, 2.0, 7.5, 3.0, 0.2), usbBodyMat, 0, -16.45, 0);
 
   // C. 3D USB Type-A connector shell & interior
   add(usb, usbShellGeometry(12.8, 4.4, 11.4), usbShellMat, 0, 22.8, 0, -Math.PI / 2);
   add(usb, new THREE.BoxGeometry(11.0, 9.8, 1.3), usbDarkCore, 0, 28.1, -0.45);
   [-3.7, -1.25, 1.25, 3.7].forEach((x) => add(usb, new THREE.BoxGeometry(1.0, 3.8, 0.2), gold, x, 31.0, 0.38));
-  [-2.8, 2.8].forEach((x) => flat(usb, 2.4, 2.2, new THREE.MeshBasicMaterial({ color: 0x111114 }), x, 28.5, -2.21));
 
   // D. Front photographic face using reference texture (682x1024, aspect ratio 0.666015625)
   if (usbTexture) {
@@ -286,8 +326,28 @@ function buildStick(decalMap, usbTexture) {
       side: THREE.FrontSide,
     });
     const frontMesh = new THREE.Mesh(new THREE.PlaneGeometry(51.95, 78.0), frontMat);
-    frontMesh.position.set(0, 0, 4.02);
+    frontMesh.position.set(0, 0, 3.86);
     usb.add(frontMesh);
+  }
+
+  // D2. Back photographic face using seamless rear texture
+  if (usbBackTexture) {
+    const backMat = new THREE.MeshPhysicalMaterial({
+      map: usbBackTexture,
+      transparent: true,
+      alphaTest: 0.02,
+      roughness: 0.3,
+      metalness: 0.15,
+      clearcoat: 0.75,
+      clearcoatRoughness: 0.12,
+      envMapIntensity: 0.95,
+      reflectivity: 0.5,
+      side: THREE.FrontSide,
+    });
+    const backMesh = new THREE.Mesh(new THREE.PlaneGeometry(51.95, 78.0), backMat);
+    backMesh.position.set(0, 0, -3.86);
+    backMesh.rotation.y = Math.PI;
+    usb.add(backMesh);
   }
 
   // E. Soft contact shadow on ground beneath cap
@@ -303,73 +363,139 @@ function buildStick(decalMap, usbTexture) {
   usb.add(contactShadow);
 
   // ==========================================
-  // W8 TV (HDMI stick) — realistic adaptation
+  // W8 TV (HDMI stick) — photorealistic upright model
   // ==========================================
   const tv = new THREE.Group();
+  tv.position.y = 5.4; // aligns visual mass with viewport center (matches usb)
+
   const tvRibbed = verticalRibbedTexture();
   const tvBodyMat = new THREE.MeshPhysicalMaterial({
-    color: 0x111114, map: tvRibbed, bumpMap: tvRibbed, bumpScale: 0.35,
-    roughness: 0.36, metalness: 0.28, clearcoat: 0.45, clearcoatRoughness: 0.16, envMapIntensity: 1.0,
+    color: 0x0e0e11,
+    map: tvRibbed,
+    bumpMap: tvRibbed,
+    bumpScale: 0.25,
+    roughness: 0.32,
+    metalness: 0.22,
+    clearcoat: 0.65,
+    clearcoatRoughness: 0.12,
+    envMapIntensity: 1.15,
   });
   const tvChinMat = new THREE.MeshPhysicalMaterial({
-    color: 0x070709, roughness: 0.22, metalness: 0.42, clearcoat: 0.85, clearcoatRoughness: 0.14, envMapIntensity: 0.7,
+    color: 0x08080a,
+    roughness: 0.22,
+    metalness: 0.28,
+    clearcoat: 0.85,
+    clearcoatRoughness: 0.09,
+    envMapIntensity: 1.2,
   });
   const tvLedMat = new THREE.MeshStandardMaterial({
-    color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 1.5, roughness: 0.1,
+    color: 0xffffff,
+    emissive: 0xffffff,
+    emissiveIntensity: 1.5,
+    roughness: 0.1,
   });
   const hdmiGold = new THREE.MeshPhysicalMaterial({
-    color: 0xecd086, roughness: 0.18, metalness: 0.98, clearcoat: 0.45, clearcoatRoughness: 0.12, envMapIntensity: 2.2,
+    color: 0xecd086,
+    roughness: 0.16,
+    metalness: 0.98,
+    clearcoat: 0.5,
+    clearcoatRoughness: 0.10,
+    envMapIntensity: 2.4,
   });
   const goldPinMat = new THREE.MeshStandardMaterial({
-    color: 0xffd700, roughness: 0.1, metalness: 1, emissive: 0x5a3e00, emissiveIntensity: 0.45,
+    color: 0xffd700,
+    roughness: 0.1,
+    metalness: 1,
+    emissive: 0x5a3e00,
+    emissiveIntensity: 0.45,
   });
   const darkCore = new THREE.MeshStandardMaterial({
-    color: 0x121215, roughness: 0.85, metalness: 0.1,
+    color: 0x121215,
+    roughness: 0.85,
+    metalness: 0.1,
   });
   const collarMat = new THREE.MeshStandardMaterial({
-    color: 0x141418, roughness: 0.35, metalness: 0.4,
+    color: 0x141418,
+    roughness: 0.35,
+    metalness: 0.4,
   });
   const holeRimMat = new THREE.MeshStandardMaterial({
-    color: 0x9e8548, roughness: 0.3, metalness: 1,
+    color: 0x9e8548,
+    roughness: 0.3,
+    metalness: 1,
   });
   const voidMat = new THREE.MeshBasicMaterial({ color: 0x050507 });
-
-  // A. Main body casing: ribbed upper section + glossy chin + LED + WINGS8 decal
-  add(tv, slab(22, 42, 8.8, 3.4, 1.1), tvBodyMat, 0, 7, 0);
-  add(tv, slab(22.4, 18, 9.4, 3.8, 1.2), tvChinMat, 0, -22, 0);
-  add(tv, slab(3.8, 1.2, 0.4, 0.55, 0.1), tvLedMat, 0, -27, 4.75); // pill LED
-  const tvDecal = new THREE.Mesh(
-    new THREE.PlaneGeometry(15, 15),
-    new THREE.MeshBasicMaterial({ map: decalMap, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2 })
-  );
-  tvDecal.position.set(0, 9.5, 4.55);
-  tv.add(tvDecal);
-
-  // B. Collar joining HDMI plug to body
-  add(tv, slab(15.2, 2.0, 5.4, 0.8, 0.2), collarMat, 0, 27.2, 0);
-
-  // C. Gold HDMI Type-A connector shell
-  add(tv, hdmiShellGeometry(), hdmiGold, 0, 27.4, 0, -Math.PI / 2);
-
-  // D. Dark interior tongue / core inside shell
-  add(tv, new THREE.BoxGeometry(11.8, 10.8, 1.3), darkCore, 0, 33.5, 0.0);
-
-  // E. Visible 19 gold contact pins inside the mouth
-  const pins = [-5.1, -4.53, -3.97, -3.4, -2.83, -2.27, -1.7, -1.13, -0.57, 0, 0.57, 1.13, 1.7, 2.27, 2.83, 3.4, 3.97, 4.53, 5.1];
-  pins.forEach((px) => {
-    add(tv, new THREE.BoxGeometry(0.32, 3.2, 0.16), goldPinMat, px, 37.0, 0.82);
+  const usbCPortRimMat = new THREE.MeshStandardMaterial({
+    color: 0x44444a,
+    roughness: 0.4,
+    metalness: 0.8,
   });
 
-  // F. Two rectangular detent latch windows on front face (matching the reference photo)
+  // A. Main body casing: width 20.8, depth 7.8, seamless with chin
+  // Body extends from y = -15.5 to y = 23.5 (height 39.0, center y = 4.0)
+  add(tv, slab(20.8, 39.0, 7.8, 3.2, 0.7), tvBodyMat, 0, 4.0, 0);
+
+  // B. Cap / Chin: width 20.8, depth 7.8, from y = -32.5 to y = -15.5 (height 17.0, center y = -24.0)
+  add(tv, slab(20.8, 17.0, 7.8, 3.2, 0.7), tvChinMat, 0, -24.0, 0);
+
+  // Seamless joint backing between body and cap (no light leak / no gap)
+  add(tv, slab(20.4, 2.0, 7.6, 3.0, 0.2), usbBodyMat, 0, -15.5, 0);
+
+  // C. Front Status LED pill (only on front face z = 3.95)
+  add(tv, slab(3.6, 1.1, 0.4, 0.5, 0.1), tvLedMat, 0, -24.5, 3.95);
+
+  // D. Front WINGS8 decal (only on front face, side: FrontSide)
+  const tvDecal = new THREE.Mesh(
+    new THREE.PlaneGeometry(14.5, 14.5),
+    new THREE.MeshBasicMaterial({ map: decalMap, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, side: THREE.FrontSide })
+  );
+  tvDecal.position.set(0, 5.0, 3.92);
+  tv.add(tvDecal);
+
+  // E. Rear Laser-etched Regulatory markings (only on back face z = -3.92, side: FrontSide)
+  const tvRearDecal = new THREE.Mesh(
+    new THREE.PlaneGeometry(14.0, 14.0),
+    new THREE.MeshBasicMaterial({ map: tvBackDecalTexture(), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, side: THREE.FrontSide })
+  );
+  tvRearDecal.position.set(0, 4.0, -3.92);
+  tvRearDecal.rotation.y = Math.PI;
+  tv.add(tvRearDecal);
+
+  // F. Collar joining HDMI plug to body
+  add(tv, slab(15.2, 1.8, 5.0, 0.8, 0.2), collarMat, 0, 23.6, 0);
+
+  // G. Gold HDMI Type-A connector shell (y = 23.7 to 35.7)
+  add(tv, hdmiShellGeometry(), hdmiGold, 0, 23.7, 0, -Math.PI / 2);
+
+  // H. Dark interior tongue / core inside shell
+  add(tv, new THREE.BoxGeometry(11.8, 10.8, 1.3), darkCore, 0, 29.8, 0.0);
+
+  // I. Visible 19 gold contact pins inside the mouth
+  const pins = [-5.1, -4.53, -3.97, -3.4, -2.83, -2.27, -1.7, -1.13, -0.57, 0, 0.57, 1.13, 1.7, 2.27, 2.83, 3.4, 3.97, 4.53, 5.1];
+  pins.forEach((px) => {
+    add(tv, new THREE.BoxGeometry(0.32, 3.2, 0.16), goldPinMat, px, 33.3, 0.82);
+  });
+
+  // J. Two rectangular detent latch windows on front face
   [-2.8, 2.8].forEach((hx) => {
-    flat(tv, 2.8, 2.4, holeRimMat, hx, 34.6, 2.305); // beveled brass rim
-    flat(tv, 2.3, 1.9, voidMat, hx, 34.6, 2.31);    // dark latch hole
+    flat(tv, 2.8, 2.4, holeRimMat, hx, 30.9, 2.305);
+    flat(tv, 2.3, 1.9, voidMat, hx, 30.9, 2.31);
   });
   // Matching subtle detent indents on the back face
   [-2.2, 2.2].forEach((hx) => {
-    flat(tv, 2.2, 1.8, holeRimMat, hx, 34.6, -2.305);
-    flat(tv, 1.8, 1.4, voidMat, hx, 34.6, -2.31);
+    flat(tv, 2.2, 1.8, holeRimMat, hx, 30.9, -2.305);
+    flat(tv, 1.8, 1.4, voidMat, hx, 30.9, -2.31);
   });
+
+  // K. USB-C receptacle on the bottom of the chin
+  add(tv, slab(6.4, 2.2, 0.4, 0.8, 0.1), usbCPortRimMat, 0, -32.55, 0, Math.PI / 2);
+  flat(tv, 5.0, 1.4, voidMat, 0, -32.58, 0, Math.PI / 2);
+
+  // L. Soft contact shadow on ground beneath cap
+  const tvContactShadow = new THREE.Mesh(new THREE.PlaneGeometry(26, 8), contactShadowMat);
+  tvContactShadow.position.set(0, -32.8, 0);
+  tvContactShadow.rotation.x = -Math.PI / 2;
+  tv.add(tvContactShadow);
 
   const root = new THREE.Group();
   root.add(usb, tv);
@@ -377,7 +503,7 @@ function buildStick(decalMap, usbTexture) {
 }
 
 /* ---------- mount ---------- */
-export async function mountStick(host, { logoUrl, reduceMotion = false, model: startModel = 'usb' } = {}) {
+export async function mountStick(host, { logoUrl, reduceMotion = false, model: startModel = 'usb', scrollTurn: enableScrollTurn = true, isCard = false } = {}) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -386,7 +512,13 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
   const canvas = renderer.domElement;
   canvas.setAttribute('role', 'img');
   canvas.setAttribute('tabindex', '0');
-  canvas.setAttribute('aria-label', 'Interactive 3D model of the W8 TV stick. Drag, or use the arrow keys, to rotate it.');
+  canvas.setAttribute('aria-label', isCard
+    ? (startModel === 'tv'
+      ? 'Interactive 3D model of the W8 TV stick. Drag to rotate.'
+      : 'Interactive 3D model of the W8 USB drive. Drag to rotate.')
+    : (startModel === 'tv'
+      ? 'Interactive 3D model of the W8 TV HDMI stick. Drag, or use arrow keys, to rotate.'
+      : 'Interactive 3D model of the WINGS8 USB drive. Drag, or use arrow keys, to rotate.'));
   host.appendChild(canvas);
 
   const scene = new THREE.Scene();
@@ -397,32 +529,35 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
   scene.add(key);
 
   const camera = new THREE.PerspectiveCamera(28, 1, 1, 600);
-  camera.position.set(0, 0, 176);
+  camera.position.set(0, 0, isCard ? 172 : 176);
 
   // pivot (user yaw/pitch) > lean (screen-space tilt) > tilt (top face toward viewer) > stick
   const pivot = new THREE.Group();
   const lean = new THREE.Group();
   const tilt = new THREE.Group();
-  const usbTexture = await loadTexture('assets/w8-usb-upright.png');
-  const parts = buildStick(await decalTexture(logoUrl), usbTexture);
+  const [usbTexture, usbBackTexture] = await Promise.all([
+    loadTexture('assets/w8-usb-upright.png'),
+    loadTexture('assets/w8-usb-back.png')
+  ]);
+  const parts = buildStick(await decalTexture(logoUrl), usbTexture, usbBackTexture);
   const stick = parts.root;
   let current = startModel === 'tv' ? 'tv' : 'usb';
-  lean.rotation.z = current === 'tv' ? -0.44 : 0;
-  tilt.rotation.x = current === 'tv' ? -0.62 : -0.04;
+  lean.rotation.z = 0;
+  tilt.rotation.x = -0.04;
   const showModel = (name) => {
     parts.tv.visible = name === 'tv';
     parts.usb.visible = name === 'usb';
     current = name;
     canvas.setAttribute('aria-label', name === 'tv'
-      ? 'Interactive 3D model of the W8 TV HDMI stick. Drag, or use arrow keys, to rotate.'
-      : 'Interactive 3D model of the WINGS8 USB drive. Drag, or use arrow keys, to rotate.');
+      ? (isCard ? 'Interactive 3D model of the W8 TV stick. Drag to rotate.' : 'Interactive 3D model of the W8 TV HDMI stick. Drag, or use arrow keys, to rotate.')
+      : (isCard ? 'Interactive 3D model of the W8 USB drive. Drag to rotate.' : 'Interactive 3D model of the WINGS8 USB drive. Drag, or use arrow keys, to rotate.'));
   };
   showModel(current);
   let swap = null;
-  stick.position.y = -8;               // centre the visual mass with generous connector headroom
+  stick.position.y = isCard ? -7 : -8;               // centre the visual mass with generous connector headroom
   tilt.add(stick); lean.add(tilt); pivot.add(lean); scene.add(pivot);
 
-  const shadow = host.querySelector('.stage__shadow');
+  const shadow = host.querySelector('.stage__shadow') || host.querySelector('.shop-card__shadow');
 
   const resize = () => {
     const w = host.clientWidth || 1, h = host.clientHeight || 1;
@@ -489,7 +624,7 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
     pitch = damp(pitch, pitchTarget, 9, dt);
 
     const intro = reduceMotion ? 1 : easeOutCubic(time / INTRO_SECONDS);
-    const scrollTurn = scrollProgress(window.scrollY, heroH()) * 0.9;
+    const scrollTurn = enableScrollTurn ? scrollProgress(window.scrollY, heroH()) * 0.9 : 0;
 
     // Distinctive animations per product:
     // W8 TV: HDMI media-device floating motion with gentle wave & golden key highlight
@@ -502,35 +637,39 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
     if (current === 'tv') {
       key.color.setHex(0xfff7e8);
       key.intensity = 1.65;
-      const baseLeanZ = -0.44;
-      const baseTiltX = -0.62;
+      const baseLeanZ = 0;
+      const baseTiltX = -0.04;
       if (!reduceMotion) {
-        sway = Math.sin(time * 0.6) * 0.28 * (settling ? 1 : 0.35);
-        bob = Math.sin(time * 1.05) * 1.6;
-        const pitchDrift = Math.cos(time * 0.5) * 0.07 * (settling ? 1 : 0.2);
-        const rollDrift = Math.sin(time * 0.35) * 0.05;
-        targetLeanZ = baseLeanZ + rollDrift;
-        targetTiltX = baseTiltX + pitchDrift;
-      } else {
+        // Continuous 360-degree rotation around vertical Y-axis (1 full rotation every 10s)
+        const TV_ROTATION_SPEED = (Math.PI * 2) / 10;
+        sway = time * TV_ROTATION_SPEED;
+        // Smooth floating animation with subtle vertical movement
+        bob = Math.sin(time * 1.0) * 1.2;
         targetLeanZ = baseLeanZ;
         targetTiltX = baseTiltX;
+      } else {
+        sway = 0;
+        bob = 0;
+        targetLeanZ = 0;
+        targetTiltX = 0;
       }
     } else {
-      // WINGS8 USB (pen drive) — Upright, smooth float & gentle side-profile rotation
+      // WINGS8 USB (pen drive) — Upright, smooth float & continuous 360° rotation
       key.color.setHex(0xffffff);
       key.intensity = 1.5;
       const baseLeanZ = 0;
       const baseTiltX = -0.04;
       if (!reduceMotion) {
-        // Slow, gentle 3D-style rotation around the vertical axis, revealing side profile and returning
-        sway = Math.sin(time * 0.55) * 0.20 * (settling ? 1 : 0.3);
+        // Continuous 360-degree rotation around vertical Y-axis (1 full rotation every 10s)
+        const USB_ROTATION_SPEED = (Math.PI * 2) / 10;
+        sway = time * USB_ROTATION_SPEED;
         // Smooth floating animation with subtle vertical movement
         bob = Math.sin(time * 1.0) * 1.2;
-        const pitchDrift = Math.cos(time * 0.45) * 0.02 * (settling ? 1 : 0.2);
-        const rollDrift = Math.sin(time * 0.35) * 0.015 * (settling ? 1 : 0.2);
-        targetLeanZ = baseLeanZ + rollDrift;
-        targetTiltX = baseTiltX + pitchDrift;
+        targetLeanZ = baseLeanZ;
+        targetTiltX = baseTiltX;
       } else {
+        sway = 0;
+        bob = 0;
         targetLeanZ = 0;
         targetTiltX = 0;
       }
@@ -557,7 +696,7 @@ export async function mountStick(host, { logoUrl, reduceMotion = false, model: s
       if (p >= 1) swap = null;
     }
 
-    const introYaw = (1 - intro) * (current === 'usb' ? 0.6 : 1.7);
+    const introYaw = 0;
     pivot.rotation.y = yaw + sway + scrollTurn + introYaw + swapYaw;
     pivot.rotation.x = pitch;
     pivot.position.y = bob * 1.3;
