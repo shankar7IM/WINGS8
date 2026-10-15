@@ -1462,7 +1462,10 @@
       </div>
       <div class="checkout-modal__body">
         <div class="checkout-gateway-notice">
-          <strong>Official Razorpay Payment Gateway (India):</strong>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+            <strong>Official Razorpay Payment Gateway (India):</strong>
+            <span class="tag" id="checkoutGatewayBadge" style="background: rgba(224, 22, 28, 0.1); color: var(--red); font-weight: 700; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em;">Razorpay Test Mode</span>
+          </div>
           <span>Secure payments via UPI (Google Pay, PhonePe, Paytm), Debit/Credit Cards, and NetBanking. Product pricing is strictly verified on our server before order creation.</span>
         </div>
 
@@ -1578,7 +1581,7 @@
         </div>
       </div>
     </div>
-  </div>
+
 
   <!-- ORDER TRACKING MODAL -->
   <div class="track-backdrop" id="trackBackdrop" hidden></div>

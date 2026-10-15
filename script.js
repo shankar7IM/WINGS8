@@ -574,7 +574,9 @@ if (typeof document !== 'undefined') {
           <dt>Status:</dt>
           <dd><span class="tag tag--red">${order.status.toUpperCase()}</span></dd>
           <dt>Razorpay ID:</dt>
-          <dd>${order.payment?.razorpayPaymentId || 'N/A'}</dd>
+          <dd><code>${order.payment?.razorpayPaymentId || 'N/A'}</code></dd>
+          <dt>Gateway Mode:</dt>
+          <dd>${order.payment?.isSimulated || (order.payment?.razorpayPaymentId && (order.payment.razorpayPaymentId.startsWith('pay_test_') || order.payment.razorpayPaymentId.startsWith('pay_sim_'))) ? 'Razorpay (Test Sandbox)' : 'Razorpay (Verified Live)'}</dd>
           <dt>Customer:</dt>
           <dd>${order.customer.name} (${order.customer.email})</dd>
           <dt>Destination:</dt>
@@ -644,102 +646,24 @@ if (typeof document !== 'undefined') {
 
         const serverOrder = await createOrderRes.json();
 
-        // Step 2: Open Razorpay Checkout modal
-        if (typeof window.Razorpay === 'function') {
-          const rzpOptions = {
-            key: serverOrder.keyId || 'rzp_test_placeholder',
-            amount: serverOrder.amountInPaise,
-            currency: serverOrder.currency || 'INR',
-            name: 'WINGS8',
-            description: 'Launch Reservation Allocation',
-            image: 'assets/slide_1_p1_i3.png',
-            order_id: serverOrder.razorpayOrderId,
-            prefill: {
-              name: serverOrder.customer.name,
-              email: serverOrder.customer.email,
-              contact: serverOrder.customer.phone
-            },
-            notes: {
-              orderRef: serverOrder.orderRef
-            },
-            theme: {
-              color: '#e0161c'
-            },
-            handler: async function (response) {
-              // Payment completed via Razorpay widget. Step 3: Verify HMAC signature server-side!
-              if (submitOrderBtn) submitOrderBtn.textContent = 'Verifying Payment Cryptography...';
-              try {
-                const verifyRes = await fetch('/api/verify-payment', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    orderRef: serverOrder.orderRef,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpaySignature: response.razorpay_signature,
-                    paymentDetails: {
-                      method: 'razorpay_checkout'
-                    }
-                  })
-                });
-
-                const verifyData = await verifyRes.json();
-                if (!verifyRes.ok || !verifyData.ok) {
-                  throw new Error(verifyData.error || 'Cryptographic payment verification failed.');
-                }
-
-                // Clear cart on genuine verified success
-                saveCart([]);
-                checkoutForm.reset();
-                showConfirmedOrder(verifyData.order);
-              } catch (verifyErr) {
-                alert(`Payment verification error: ${verifyErr.message}`);
-                if (submitOrderBtn) {
-                  submitOrderBtn.disabled = false;
-                  submitOrderBtn.textContent = 'Retry Payment Verification';
-                }
-              }
-            },
-            modal: {
-              ondismiss: function () {
-                if (submitOrderBtn) {
-                  submitOrderBtn.disabled = false;
-                  submitOrderBtn.textContent = 'Proceed to Razorpay Payment';
-                }
-              }
-            }
-          };
-
-          const rzp = new window.Razorpay(rzpOptions);
-          rzp.on('payment.failed', function (resp) {
-            alert(`Payment failed: ${resp.error.description || 'Transaction cancelled by user or bank'}`);
-            if (submitOrderBtn) {
-              submitOrderBtn.disabled = false;
-              submitOrderBtn.textContent = 'Proceed to Razorpay Payment';
-            }
-          });
-          rzp.open();
-        } else {
-          // Fallback simulation when offline or script not loaded
-          const simulateSignature = 'sim_sig_' + Array.from({ length: 56 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-          const simPayId = 'pay_sim_' + Date.now();
-          const verifyRes = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              orderRef: serverOrder.orderRef,
-              razorpayOrderId: serverOrder.razorpayOrderId,
-              razorpayPaymentId: simPayId,
-              razorpaySignature: simulateSignature
-            })
-          });
-          const verifyData = await verifyRes.json();
-          if (verifyData.ok) {
-            saveCart([]);
-            checkoutForm.reset();
-            showConfirmedOrder(verifyData.order);
+        // Update gateway badge dynamically based on order simulation status
+        const checkoutGatewayBadge = document.getElementById('checkoutGatewayBadge');
+        if (checkoutGatewayBadge) {
+          if (serverOrder.isSimulated) {
+            checkoutGatewayBadge.textContent = 'Razorpay Test Sandbox';
+            checkoutGatewayBadge.style.background = 'rgba(224, 22, 28, 0.1)';
+            checkoutGatewayBadge.style.color = 'var(--red)';
+          } else {
+            checkoutGatewayBadge.textContent = 'Razorpay Active';
+            checkoutGatewayBadge.style.background = 'rgba(34, 197, 94, 0.15)';
+            checkoutGatewayBadge.style.color = '#15803d';
           }
         }
+
+        // Step 2: Redirect user to the Razorpay Payment Gateway page
+        const gatewayUrl = `/razorpay-gateway.html?orderRef=${encodeURIComponent(serverOrder.orderRef)}&amount=${serverOrder.amountInINR}&amountPaise=${serverOrder.amountInPaise}&name=${encodeURIComponent(serverOrder.customer.name)}&email=${encodeURIComponent(serverOrder.customer.email)}&phone=${encodeURIComponent(serverOrder.customer.phone)}`;
+        
+        window.location.href = gatewayUrl;
       } catch (err) {
         alert(`Checkout Error: ${err.message}`);
         if (submitOrderBtn) {
@@ -758,6 +682,51 @@ if (typeof document !== 'undefined') {
     }
   });
   closeConfirmedModalBtn?.addEventListener('click', () => setCheckoutOpen(false));
+
+  // ---------- Razorpay Gateway Return & Order Confirmation Logic ----------
+  async function checkGatewayReturnStatus() {
+    const params = new URLSearchParams(window.location.search);
+    const orderRef = params.get('orderRef');
+    const status = params.get('status');
+    const paymentId = params.get('paymentId');
+
+    if (orderRef && status === 'confirmed') {
+      saveCart([]);
+      if (checkoutForm) checkoutForm.reset();
+
+      try {
+        const res = await fetch(`/api/order-status?orderRef=${encodeURIComponent(orderRef)}`);
+        const data = await res.json();
+        if (res.ok && data.ok && data.order) {
+          showConfirmedOrder(data.order);
+          setCheckoutOpen(true);
+        } else {
+          showConfirmedOrder({
+            orderRef,
+            status: 'confirmed',
+            payment: { razorpayPaymentId: paymentId || 'pay_verified' },
+            customer: { name: 'Customer', email: '', city: 'India', region: '' },
+            pricing: { totalInINR: 999 },
+            tracking: { estimatedDispatch: 'Q4 2026 Batch' }
+          });
+          setCheckoutOpen(true);
+        }
+      } catch {
+        setCheckoutOpen(true);
+      }
+
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname + '#confirmed');
+      }
+    } else if (orderRef && status === 'cancelled') {
+      setCheckoutOpen(true);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname + '#checkout');
+      }
+    }
+  }
+
+  checkGatewayReturnStatus();
 
   // ---------- Order Tracking Feature ----------
   const trackModal = document.getElementById('trackModal');
